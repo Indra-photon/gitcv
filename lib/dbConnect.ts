@@ -37,6 +37,8 @@ async function dbConnect(): Promise<void> {
 async function connectWithRetry(retries = 3, delay = 2000): Promise<void> {
     for (let attempt = 1; attempt <= retries; attempt++) {
         try {
+            console.log(`URI: ${process.env.MONGODB_URI}`);
+            
             const db = await mongoose.connect(process.env.MONGODB_URI as string || '', {
                 serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
                 socketTimeoutMS: 45000,
