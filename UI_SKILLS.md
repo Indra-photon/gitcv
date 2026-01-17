@@ -26,11 +26,23 @@ Opinionated constraints for building better interfaces.
 - MUST use `motion/react` (formerly `framer-motion`) when JavaScript animation is required
 - SHOULD use `tw-animate-css` for entrance and micro-animations in Tailwind CSS
 - MUST use `cn` utility (`clsx` + `tailwind-merge`) for class logic
+- MUST use `Shadcn` ui components always
 
 ---
 
+## Fonts
+- import localFont from "next/font/local";
+- MUST use fonts from font folder exmaple 
+`const CalSans = localFont({
+  src: [{ path: "../../fonts/CalSans-SemiBold.woff2" }],
+  display: "swap",
+});`
+- 
+
 ## Components
 
+-  MUST break each component into several components for better restructuring as server and client componennt for best optimization
+- Always use `Image` from NextJS for image optimization 
 - MUST use accessible component primitives for anything with keyboard or focus behavior  
   (`Base UI`, `React Aria`, `Radix`)
 - MUST use the project’s existing component primitives first
@@ -72,6 +84,7 @@ Opinionated constraints for building better interfaces.
 ## Typography
 
 - MUST use `text-balance` for headings
+- MUST use `Heading.tsx`, `Lines.tsx`, `Conatiner.tsx `, `Highlight.tsx`, `Paragraph.tsx`, `SubHeading.tsx` for typography 
 - MUST use `text-pretty` for body/paragraphs
 - MUST use `tabular-nums` for data
 - SHOULD use `truncate` or `line-clamp` for dense UI

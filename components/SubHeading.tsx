@@ -18,13 +18,13 @@ export const Heading = <T extends React.ElementType = "h1">({
   children,
   as,
 }: HeadingProps<T>) => {
-  const Tag = as || "h1";
+  const Tag = as || "h2";
   
   return (
     <Tag
       className={twMerge(
         CalSans.className,
-        "text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold leading-tight text-white",
+        "text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold leading-tight text-white",
         className
       )}
     >
