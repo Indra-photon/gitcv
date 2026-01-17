@@ -38,6 +38,7 @@ export interface IAIMetadata {
 export interface IResume extends Document {
   _id: mongoose.Types.ObjectId;
   user_id: mongoose.Types.ObjectId;
+  job_description_id?: mongoose.Types.ObjectId; // Optional reference to JobDescription
   
   // Resume Details
   title: string;
@@ -64,6 +65,31 @@ export interface IResume extends Document {
   updatedAt: Date;
 }
 
+const ProjectSchema = new Schema<IProject>(
+  {
+    repo_name: {
+      type: String,
+      required: true
+    },
+    repo_url: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    bullets: {
+      type: [String],
+      required: true
+    },
+    technologies: {
+      type: [String],
+      default: []
+    }
+  },
+  { _id: false }
+);
 
 const AIMetadataSchema = new Schema<IAIMetadata>(
   {
@@ -99,6 +125,12 @@ const ResumeSchema = new Schema<IResume>(
       ref: 'User',
       required: true,
       index: true
+    },
+    
+    job_description_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'JobDescription',
+      default: null
     },
     
     title: {
