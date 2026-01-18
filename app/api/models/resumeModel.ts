@@ -25,6 +25,7 @@ export interface IResumeContent {
     tools?: string[];
     other?: string[];
   };
+  problems_solved?: string[];
 }
 
 export interface IAIMetadata {
