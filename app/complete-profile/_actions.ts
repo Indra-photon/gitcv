@@ -2,7 +2,7 @@
 
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import dbConnect from '@/lib/dbConnect'
-import UserModel from '@/app/api/models/userModel'
+import UserModel from '@/app/api/models/UserModel'
 import SubscriptionModel from '@/app/api/models/subscriptionModel'
 import { SUBSCRIPTION_TIERS, SUBSCRIPTION_STATUS } from '@/constants/limit'
 

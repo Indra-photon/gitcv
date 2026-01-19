@@ -13,7 +13,7 @@ type HeadingProps<T extends React.ElementType = "h1"> = {
   as?: T;
 };
 
-export const Heading = <T extends React.ElementType = "h1">({
+export const SubHeading = <T extends React.ElementType = "h1">({
   className,
   children,
   as,
