@@ -54,7 +54,7 @@ export function NavBar({
 }, [isUserMenuOpen])
 
   // user store data
-  const user = useUserStore((state) => state.user);
+  const user = useUserStore((state) => state.clerkUser);
   
 
   return (

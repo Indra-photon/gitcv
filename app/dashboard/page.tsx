@@ -1,9 +1,27 @@
-import React from 'react'
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
+import ResumeGeneratorWizard from '@/components/ResumeGeneratorWizard'
+import { Container } from '@/components/Container'
+import { Heading } from '@/components/Heading'
 
-function Dashboard() {
+export default async function DashboardPage() {
+  const { userId } = await auth()
+
+  if (!userId) {
+    redirect('/sign-in')
+  }
+
   return (
-    <div>Dashboard</div>
+    <div className="min-h-dvh bg-neutral-50">
+      <Container className="py-8">
+        <div className="mb-8">
+          <Heading className="text-balance">
+            Create Your Resume
+          </Heading>
+        </div>
+
+        <ResumeGeneratorWizard />
+      </Container>
+    </div>
   )
 }
-
-export default Dashboard

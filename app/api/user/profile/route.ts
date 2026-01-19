@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/dbConnect'
-import UserModel from '@/app/api/models/userModel'
+import UserModel from '@/app/api/models/UserModel'
 
 export async function GET() {
   try {

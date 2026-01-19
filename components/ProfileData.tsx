@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import dbConnect from '@/lib/dbConnect'
-import UserModel from '@/app/api/models/userModel'
+import UserModel from '@/app/api/models/UserModel'
 import ProfileDataClient from './Profiledataclient'
 
 export default async function ProfileData() {
