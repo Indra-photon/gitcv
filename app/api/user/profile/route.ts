@@ -60,12 +60,14 @@ export async function PATCH(request: Request) {
       portfolio_url,
       linkedin_url,
       professional_headline,
-      github_username
+      github_username,
+      full_name
     } = body
 
     // Build update object with only provided fields
     const updateData: Record<string, any> = {}
     
+    if (full_name !== undefined) updateData.full_name = full_name?.trim()
     if (phone !== undefined) updateData.phone = phone?.trim() || null
     if (location !== undefined) updateData.location = location?.trim() || null
     if (portfolio_url !== undefined) updateData.portfolio_url = portfolio_url?.trim() || null

@@ -206,12 +206,22 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
 
   console.log('Rendering ClassicTemplate with content:', userData)
 
+  const formatDate = (dateString: string | null) => {
+  if (!dateString) return null
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  })
+}
+
   return (
     <div className="p-12 space-y-6">
       {/* Header */}
       <div className="space-y-2 border-b-2 border-neutral-900 pb-4">
         <h1 className={cn("text-3xl font-bold text-neutral-900 text-balance", CalSans.className)}>
-          {userData?.github_username || 'Your Name'}
+          {userData?.full_name || userData?.github_username || 'Your Name'}
         </h1>
         <div className="text-sm text-neutral-600 flex flex-wrap gap-x-2 gap-y-1">
           <span>
@@ -384,12 +394,12 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
               <div key={idx} className="space-y-2">
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className={cn("font-bold text-neutral-900", CalSans.className)}>
-                    {work.title || 'Position'}
+                    {work.job_title || 'Position'}
                   </h3>
                   <span className={cn("text-sm text-neutral-600", CalSans.className)}>
-                    {work.start_date && work.end_date 
-                      ? `${work.start_date} - ${work.end_date}`
-                      : work.start_date || 'Date'}
+                    {work.start_date 
+                      ? `${formatDate(work.start_date)} - ${work.end_date ? formatDate(work.end_date) : 'Present'}`
+                      : 'Date'}
                   </span>
                 </div>
                 <p className={cn("text-sm text-neutral-700 font-medium", CalSans.className)}>

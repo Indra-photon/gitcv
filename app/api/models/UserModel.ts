@@ -203,6 +203,7 @@ export interface IUser extends Document {
   github_username: string;
   
   // Profile Information
+  full_name?: string | null;
   phone: string | null;
   location: string | null;
   portfolio_url: string | null;
@@ -297,6 +298,11 @@ const UserSchema = new Schema<IUser>(
     },
     
     // Profile Information
+    full_name: {
+      type: String,
+      required: true,
+      trim: true
+    },
     phone: {
       type: String,
       default: null,

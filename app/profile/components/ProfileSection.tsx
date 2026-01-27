@@ -55,7 +55,8 @@ interface WorkExperience {
 interface UserData {
   _id: string
   clerk_id: string
-  github_username: string
+  github_username: string,
+  full_name: string | null
   phone: string | null
   location: string | null
   portfolio_url: string | null
@@ -82,6 +83,7 @@ export default function ProfileSection({ user: initialUser }: ProfileSectionProp
   // Personal Info State
   const [personalInfo, setPersonalInfo] = useState({
     github_username: user.github_username,
+    full_name: user.full_name || '',
     phone: user.phone || '',
     location: user.location || '',
     portfolio_url: user.portfolio_url || '',
@@ -382,6 +384,7 @@ export default function ProfileSection({ user: initialUser }: ProfileSectionProp
                   setEditingSection(null)
                   setPersonalInfo({
                     github_username: user.github_username,
+                    full_name: user.full_name || '',
                     phone: user.phone || '',
                     location: user.location || '',
                     portfolio_url: user.portfolio_url || '',
@@ -411,6 +414,19 @@ export default function ProfileSection({ user: initialUser }: ProfileSectionProp
           {editingSection === 'personal' ? (
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="full_name" className={cn("text-neutral-700", CalSans.className)}>
+                    Full Name *
+                  </Label>
+                  <Input
+                    id="full_name"
+                    value={personalInfo.full_name}
+                    onChange={(e) => setPersonalInfo(prev => ({ ...prev, full_name: e.target.value }))}
+                    placeholder="John Doe"
+                    className="bg-white border-neutral-300"
+                  />
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="github_username" className={cn("text-neutral-700", CalSans.className)}>GitHub Username</Label>
                   <Input
@@ -483,6 +499,16 @@ export default function ProfileSection({ user: initialUser }: ProfileSectionProp
                 <div className="flex-1 space-y-1">
                   <p className={cn("text-sm text-neutral-500", CalSans.className)}>GitHub Username</p>
                   <p className={cn("text-base text-neutral-900", CalSans.className)}>{user.github_username}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="mt-1 p-2 rounded-lg bg-neutral-100">
+                  <User className="size-5 text-neutral-600" />
+                </div>
+                <div className="flex-1 space-y-1">
+                  <p className={cn("text-sm text-neutral-500", CalSans.className)}>Full Name</p>
+                  <p className={cn("text-base text-neutral-900", CalSans.className)}>{user.full_name || 'N/A'}</p>
                 </div>
               </div>
 
