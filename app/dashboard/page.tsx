@@ -14,12 +14,6 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-dvh bg-neutral-50">
       <Container className="py-8">
-        <div className="mb-8">
-          <Heading className="text-balance">
-            Create Your Resume
-          </Heading>
-        </div>
-
         <ResumeGeneratorWizard />
       </Container>
     </div>

@@ -10,6 +10,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ResumeRole, RESUME_ROLES } from '@/constants/limit'
 import {SubHeading} from '@/components/SubHeading'
+import { cn } from '@/lib/utils'
+import { CalSans } from '@/lib/fonts'
 
 interface StepOneProps {
   userProfile: any
@@ -59,7 +61,7 @@ export default function StepOne({
       {/* Profile Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <SubHeading>Your Profile</SubHeading>
+          <SubHeading className='text-neutral-600'>Your Profile Details</SubHeading>
           <Link href="/profile">
             <Button variant="outline" size="sm">
               <Edit className="size-4 mr-2" />
@@ -74,8 +76,8 @@ export default function StepOne({
             <div className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50">
               <Phone className="size-4 text-neutral-600 mt-0.5" />
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-neutral-500">Phone</p>
-                <p className="text-sm text-neutral-900 truncate">{userProfile.phone}</p>
+                <p className={cn("text-sm text-neutral-500", CalSans.className)}>Phone</p>
+                <p className={cn("text-sm text-neutral-900 truncate", CalSans.className)}>{userProfile.phone}</p>
               </div>
             </div>
           )}
@@ -84,8 +86,8 @@ export default function StepOne({
             <div className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50">
               <MapPin className="size-4 text-neutral-600 mt-0.5" />
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-neutral-500">Location</p>
-                <p className="text-sm text-neutral-900 truncate">{userProfile.location}</p>
+                <p className={cn("text-sm text-neutral-500", CalSans.className)}>Location</p>
+                <p className={cn("text-sm text-neutral-900 truncate", CalSans.className)}>{userProfile.location}</p>
               </div>
             </div>
           )}
@@ -94,12 +96,12 @@ export default function StepOne({
             <div className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50">
               <Globe className="size-4 text-neutral-600 mt-0.5" />
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-neutral-500">Portfolio</p>
+                <p className={cn("text-sm text-neutral-500", CalSans.className)}>Portfolio</p>
                 <a 
                   href={userProfile.portfolio_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:text-blue-700 truncate block"
+                  className={cn("text-sm text-blue-600 hover:text-blue-700 truncate block", CalSans.className)}
                 >
                   {userProfile.portfolio_url}
                 </a>
@@ -111,12 +113,12 @@ export default function StepOne({
             <div className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50">
               <Linkedin className="size-4 text-neutral-600 mt-0.5" />
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-neutral-500">LinkedIn</p>
+                <p className={cn("text-sm text-neutral-500", CalSans.className)}>LinkedIn</p>
                 <a 
                   href={userProfile.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:text-blue-700 truncate block"
+                  className={cn("text-sm text-blue-600 hover:text-blue-700 truncate block", CalSans.className)}
                 >
                   {userProfile.linkedin_url}
                 </a>
@@ -128,17 +130,17 @@ export default function StepOne({
         {/* Education */}
         {userProfile.education?.length > 0 && (
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sm font-medium text-neutral-700">
+            <div className={cn("flex items-center gap-2 text-sm font-medium text-neutral-700", CalSans.className)}>
               <GraduationCap className="size-4" />
               Education
             </div>
             <div className="space-y-2">
               {userProfile.education.map((edu: any, idx: number) => (
                 <div key={idx} className="p-3 rounded-lg bg-neutral-50">
-                  <p className="text-sm font-medium text-neutral-900">
+                  <p className={cn("text-sm font-medium text-neutral-900", CalSans.className)}>
                     {edu.degree} - {edu.school}
                   </p>
-                  <p className="text-sm text-neutral-600">
+                  <p className={cn("text-sm text-neutral-600", CalSans.className)}>
                     {edu.start_year} - {edu.end_year || 'Present'}
                     {edu.gpa && ` • GPA: ${edu.gpa}`}
                   </p>
@@ -151,17 +153,17 @@ export default function StepOne({
         {/* Work Experience */}
         {userProfile.work_experience?.length > 0 && (
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sm font-medium text-neutral-700">
+            <div className={cn("flex items-center gap-2 text-sm font-medium text-neutral-700", CalSans.className)}>
               <Briefcase className="size-4" />
               Work Experience
             </div>
             <div className="space-y-2">
               {userProfile.work_experience.map((exp: any, idx: number) => (
                 <div key={idx} className="p-3 rounded-lg bg-neutral-50">
-                  <p className="text-sm font-medium text-neutral-900">
+                  <p className={cn("text-sm font-medium text-neutral-900", CalSans.className)}>
                     {exp.job_title} at {exp.company}
                   </p>
-                  <p className="text-sm text-neutral-600">
+                  <p className={cn("text-sm text-neutral-600", CalSans.className)}>
                     {new Date(exp.start_date).getFullYear()} - {exp.end_date ? new Date(exp.end_date).getFullYear() : 'Present'}
                   </p>
                 </div>
@@ -174,13 +176,13 @@ export default function StepOne({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {userProfile.custom_skills?.length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm font-medium text-neutral-700">
+              <div className={cn("flex items-center gap-2 text-sm font-medium text-neutral-700", CalSans.className)}>
                 <Award className="size-4" />
                 Skills
               </div>
               <div className="flex flex-wrap gap-1">
                 {userProfile.custom_skills.slice(0, 5).map((skill: string, idx: number) => (
-                  <span key={idx} className="px-2 py-1 text-xs bg-neutral-100 text-neutral-700 rounded">
+                  <span key={idx} className={cn("px-2 py-1 text-xs bg-neutral-100 text-neutral-700 rounded", CalSans.className)}>
                     {skill}
                   </span>
                 ))}
@@ -190,13 +192,13 @@ export default function StepOne({
 
           {userProfile.certifications?.length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm font-medium text-neutral-700">
+              <div className={cn("flex items-center gap-2 text-sm font-medium text-neutral-700", CalSans.className)}>
                 <Award className="size-4" />
                 Certifications
               </div>
               <div className="flex flex-wrap gap-1">
                 {userProfile.certifications.slice(0, 3).map((cert: string, idx: number) => (
-                  <span key={idx} className="px-2 py-1 text-xs bg-neutral-100 text-neutral-700 rounded">
+                  <span key={idx} className={cn("px-2 py-1 text-xs bg-neutral-100 text-neutral-700 rounded", CalSans.className)}>
                     {cert}
                   </span>
                 ))}
@@ -206,13 +208,13 @@ export default function StepOne({
 
           {userProfile.languages?.length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm font-medium text-neutral-700">
+              <div className={cn("flex items-center gap-2 text-sm font-medium text-neutral-700", CalSans.className)}>
                 <Languages className="size-4" />
                 Languages
               </div>
               <div className="flex flex-wrap gap-1">
                 {userProfile.languages.map((lang: string, idx: number) => (
-                  <span key={idx} className="px-2 py-1 text-xs bg-neutral-100 text-neutral-700 rounded">
+                  <span key={idx} className={cn("px-2 py-1 text-xs bg-neutral-100 text-neutral-700 rounded", CalSans.className)}>
                     {lang}
                   </span>
                 ))}
@@ -225,8 +227,8 @@ export default function StepOne({
       {/* Job Description */}
       <div className="space-y-4">
         <div>
-          <SubHeading>Job Description (Optional)</SubHeading>
-          <p className="text-sm text-neutral-600 mt-1">
+          <SubHeading className='text-neutral-600'>Job Description (Optional)</SubHeading>
+          <p className={cn("text-sm text-neutral-600 mt-1", CalSans.className)}>
             {isPaid 
               ? 'Paste the job description to tailor your resume with AI matching'
               : 'Upgrade to Premium to unlock AI-powered job description matching'
@@ -244,7 +246,7 @@ export default function StepOne({
           />
           
           {!isPaid && (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className={cn("absolute inset-0 flex items-center justify-center bg-white/70", CalSans.className)}>
               <Button
                 onClick={() => setShowPaywall(true)}
                 variant="default"
@@ -267,14 +269,14 @@ export default function StepOne({
       {/* Role Selection */}
       <div className="space-y-4">
         <div>
-          <SubHeading>Select Your Role</SubHeading>
-          <p className="text-sm text-neutral-600 mt-1">
+          <SubHeading className='text-neutral-600'>Select Your Role</SubHeading>
+          <p className={cn("text-sm text-neutral-600 mt-1", CalSans.className)}>
             Choose the developer role that best matches your target position
           </p>
         </div>
 
         <RadioGroup value={selectedRole || ''} onValueChange={(value) => setSelectedRole(value as ResumeRole)}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="flex flex-wrap gap-4">
             {ROLE_OPTIONS.map((option) => (
               <Label
                 key={option.value}
@@ -287,7 +289,6 @@ export default function StepOne({
                     : 'border-neutral-200 hover:border-neutral-300'
                 }`}>
                   <RadioGroupItem value={option.value} id={option.value} />
-                  <span className="text-2xl">{option.icon}</span>
                   <span className="text-sm font-medium text-neutral-900">{option.label}</span>
                 </div>
               </Label>
@@ -299,14 +300,14 @@ export default function StepOne({
       {/* Experience Level */}
       <div className="space-y-4">
         <div>
-          <SubHeading>Experience Level</SubHeading>
-          <p className="text-sm text-neutral-600 mt-1">
+          <SubHeading className='text-neutral-600'>Experience Level</SubHeading>
+          <p className={cn("text-sm text-neutral-600 mt-1", CalSans.className)}>
             Select your years of professional experience
           </p>
         </div>
 
         <RadioGroup value={experienceLevel || ''} onValueChange={(value) => setExperienceLevel(value as any)}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="flex flex-wrap gap-4">
             {EXPERIENCE_OPTIONS.map((option) => (
               <Label
                 key={option.value}

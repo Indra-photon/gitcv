@@ -9,6 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
 import { SubHeading } from '@/components/SubHeading'
 import { toast } from 'sonner'
+import { cn } from '@/lib/utils'
+import { CalSans } from '@/lib/fonts'
 
 interface Repository {
   id: number
@@ -137,8 +139,8 @@ export default function StepTwo({
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="space-y-2">
-        <SubHeading>Select Repositories</SubHeading>
-        <p className="text-sm text-neutral-600">
+        <SubHeading className='text-neutral-600'>Select Repositories</SubHeading>
+        <p className={cn("text-sm text-neutral-600", CalSans.className)}>
           Choose 3-5 repositories that best showcase your skills
         </p>
       </div>
@@ -154,10 +156,10 @@ export default function StepTwo({
             {selectedRepos.length}
           </div>
           <div>
-            <p className="text-sm font-medium text-neutral-900">
+            <p className={cn("font-medium", selectedRepos.length >=3 && selectedRepos.length <=5 ? "text-green-700" : "text-neutral-900", CalSans.className)}>
               {selectedRepos.length} of 5 selected
             </p>
-            <p className="text-xs text-neutral-600">
+            <p className={cn("text-xs", CalSans.className)}>
               {selectedRepos.length < 3 && `Select ${3 - selectedRepos.length} more`}
               {selectedRepos.length >= 3 && selectedRepos.length <= 5 && 'Ready to continue'}
               {selectedRepos.length > 5 && 'Maximum reached'}

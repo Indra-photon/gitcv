@@ -40,6 +40,7 @@ interface ResumeEditorProps {
 export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
   const router = useRouter()
   
+  
   // Get user data from Zustand store
   const { userProfile } = useUserStore()
   
