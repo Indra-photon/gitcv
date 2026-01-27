@@ -34,6 +34,9 @@ export default async function ResumeEditPage({ params }: PageProps) {
     user_id: user._id
   }).lean()
 
+  console.log('Fetched resume for editing:', resume);
+  
+
   if (!resume) {
     notFound()
   }
@@ -62,6 +65,9 @@ export default async function ResumeEditPage({ params }: PageProps) {
     created_at: resume.createdAt.toISOString(),
     updated_at: resume.updatedAt.toISOString()
   }
+
+  console.log('Sending resume data to editor:', resumeData);
+  
 
   return (
     <div className="min-h-dvh bg-neutral-50">

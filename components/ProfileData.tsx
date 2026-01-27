@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import dbConnect from '@/lib/dbConnect'
 import UserModel from '@/app/api/models/UserModel'
 import ProfileDataClient from './Profiledataclient'
+import ProfileLayout from '@/app/profile/components/ProfileLayout'
 
 export default async function ProfileData() {
   const { userId } = await auth()
@@ -36,5 +37,5 @@ export default async function ProfileData() {
     }))
   }
 
-  return <ProfileDataClient user={userData} />
+  return <ProfileLayout user={userData} />
 }

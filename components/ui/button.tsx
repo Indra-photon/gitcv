@@ -1,6 +1,12 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import localFont from "next/font/local";
+
+const CalSans = localFont({
+  src: [{ path: "../../fonts/CalSans-SemiBold.woff2" }],
+  display: "swap",
+}); 
 
 import { cn } from "@/lib/utils"
 
@@ -53,7 +59,7 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, className }), CalSans.className)}
       {...props}
     />
   )

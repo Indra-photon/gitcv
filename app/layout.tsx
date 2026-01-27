@@ -4,7 +4,6 @@ import "./globals.css";
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Toaster } from "@/components/ui/sonner"
 import { NavBar } from "@/components/NavBar";
-
 import {
   ClerkProvider,
   SignInButton,
