@@ -33,6 +33,7 @@ interface UserProfile {
   _id: string
   clerk_id: string
   github_username: string
+  full_name: string | null
   phone: string | null
   location: string | null
   portfolio_url: string | null

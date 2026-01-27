@@ -18,6 +18,7 @@ export const completeProfile = async (formData: FormData) => {
 
     // Extract form data
     const github_username = formData.get('github_username') as string
+    const full_name = formData.get('full_name') as string | null
     const phone = formData.get('phone') as string | null
     const location = formData.get('location') as string | null
     const portfolio_url = formData.get('portfolio_url') as string | null
@@ -54,6 +55,10 @@ export const completeProfile = async (formData: FormData) => {
     // Validate required field
     if (!github_username) {
       return { error: 'GitHub username is required' }
+    }
+
+    if (!full_name || !full_name.trim()) {
+      return { error: 'Full name is required' }
     }
 
     // check if github_username is valid (alphanumeric and hyphens only) and unique so that same user cannot register again with same github username
@@ -100,6 +105,7 @@ export const completeProfile = async (formData: FormData) => {
     const newUser = await UserModel.create({
       clerk_id: userId,
       github_username: github_username.trim(),
+      full_name: full_name.trim(),
       phone: phone?.trim() || null,
       location: location?.trim() || null,
       portfolio_url: portfolio_url?.trim() || null,

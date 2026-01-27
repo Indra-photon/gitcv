@@ -55,6 +55,20 @@ export default function CompleteProfilePage() {
               <Paragraph className="text-lg font-medium text-neutral-900">
                 Personal Information
               </Paragraph>
+
+              <div className="space-y-2">
+                <Label htmlFor="full_name" className="text-neutral-700">
+                  Full Name *
+                </Label>
+                <Input
+                  id="full_name"
+                  name="full_name"
+                  type="text"
+                  required
+                  placeholder="John Doe"
+                  className="bg-white border-neutral-300 text-neutral-900 focus:border-neutral-500"
+                />
+              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
