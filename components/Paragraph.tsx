@@ -32,11 +32,8 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import localFont from "next/font/local";
+import { CalSans } from "@/lib/fonts";
 
-const CalSans = localFont({
-  src: [{ path: "../fonts/CalSans-SemiBold.woff2" }],
-  display: "swap",
-});
 
 type ParagraphProps<T extends React.ElementType = "p"> = {
   className?: string;
@@ -55,15 +52,15 @@ export const Paragraph = <T extends React.ElementType = "p">({
   
   const variants = {
     default: "text-sm sm:text-base md:text-lg leading-relaxed text-gray-600 dark:text-gray-300",
-    muted: "text-xs sm:text-sm md:text-base leading-relaxed text-gray-500 dark:text-gray-400",
+    muted: "text-sm sm:text-base md:text-2xl leading-relaxed text-gray-500 dark:text-gray-400",
     small: "text-xs sm:text-sm leading-relaxed text-gray-600 dark:text-gray-300",
   };
   
   return (
     <Tag
       className={twMerge(
-        variants[variant],
         CalSans.className,
+        variants[variant],
         className
       )}
     >
