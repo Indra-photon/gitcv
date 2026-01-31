@@ -4,111 +4,132 @@ import puppeteer from 'puppeteer'
 export const maxDuration = 60 // Allow up to 60 seconds for PDF generation
 
 export async function POST(request: NextRequest) {
-    let browser = null
+  let browser = null
 
-    try {
-        const { resumeId, resumeData, userData } = await request.json()
+  try {
+    const { resumeId, resumeData, userData } = await request.json()
 
-        if (!resumeData || !userData) {
-            return NextResponse.json(
-                { error: 'Missing required data' },
-                { status: 400 }
-            )
-        }
-
-        console.log('Starting PDF generation...')
-
-        // Launch Puppeteer browser
-        browser = await puppeteer.launch({
-            headless: true,
-            args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-gpu',
-            ],
-        })
-
-        const page = await browser.newPage()
-
-        // Set viewport to A4 dimensions (in pixels at 96 DPI)
-        await page.setViewport({
-            width: 794, // A4 width at 96 DPI
-            height: 1123, // A4 height at 96 DPI
-            deviceScaleFactor: 2, // High resolution
-        })
-
-        // Create HTML content with the resume template
-        const html = generateResumeHTML(resumeData, userData)
-
-        // Set the HTML content
-        await page.setContent(html, {
-            waitUntil: 'networkidle0', // Wait for all resources to load
-        })
-
-        // Wait a bit for fonts to load
-        await new Promise(resolve => setTimeout(resolve, 1000))
-
-        // Generate PDF
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            printBackground: true,
-            margin: {
-                top: '0.5in',
-                right: '0.5in',
-                bottom: '0.5in',
-                left: '0.5in',
-            },
-        })
-
-        await browser.close()
-        browser = null
-
-        console.log('PDF generated successfully')
-
-        // Return PDF as response
-        return new NextResponse(Buffer.from(pdfBuffer), {
-            headers: {
-                'Content-Type': 'application/pdf',
-                'Content-Disposition': `attachment; filename="${resumeData.title || 'resume'}.pdf"`,
-            },
-        })
-    } catch (error: any) {
-        console.error('Error generating PDF:', error)
-
-        if (browser) {
-            await browser.close()
-        }
-
-        return NextResponse.json(
-            { error: 'Failed to generate PDF', details: error.message },
-            { status: 500 }
-        )
+    if (!resumeData || !userData) {
+      return NextResponse.json(
+        { error: 'Missing required data' },
+        { status: 400 }
+      )
     }
+
+    console.log('Starting PDF generation...')
+
+    // Launch Puppeteer browser
+    browser = await puppeteer.launch({
+      headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+      ],
+    })
+
+    const page = await browser.newPage()
+
+    // Set viewport to A4 dimensions (in pixels at 96 DPI)
+    await page.setViewport({
+      width: 794, // A4 width at 96 DPI
+      height: 1123, // A4 height at 96 DPI
+      deviceScaleFactor: 2, // High resolution
+    })
+
+    // Create HTML content with the resume template
+    const html = generateResumeHTML(resumeData, userData)
+
+    // Set the HTML content
+    await page.setContent(html, {
+      waitUntil: 'networkidle0', // Wait for all resources to load
+    })
+
+    // Wait a bit for fonts to load
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    // Generate PDF
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      margin: {
+        top: '0.5in',
+        right: '0.5in',
+        bottom: '0.5in',
+        left: '0.5in',
+      },
+    })
+
+    await browser.close()
+    browser = null
+
+    console.log('PDF generated successfully')
+
+    // Return PDF as response
+    return new NextResponse(Buffer.from(pdfBuffer), {
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': `attachment; filename="${resumeData.title || 'resume'}.pdf"`,
+      },
+    })
+  } catch (error: any) {
+    console.error('Error generating PDF:', error)
+
+    if (browser) {
+      await browser.close()
+    }
+
+    return NextResponse.json(
+      { error: 'Failed to generate PDF', details: error.message },
+      { status: 500 }
+    )
+  }
+}
+
+/**
+ * Sanitize Tiptap HTML for PDF generation
+ */
+function sanitizeTiptapHTML(html: string): string {
+  if (!html) return ''
+
+  // Remove wrapping <p></p> tags for single-line content
+  let cleaned = html.trim()
+  if (cleaned.startsWith('<p>') && cleaned.endsWith('</p>') && cleaned.split('<p>').length === 2) {
+    cleaned = cleaned.slice(3, -4)
+  }
+
+  // Basic sanitization
+  const safeHTML = cleaned
+    .replace(/<script[^>]*>.*?<\/script>/gi, '')
+    .replace(/on\w+="[^"]*"/gi, '')
+    .replace(/javascript:/gi, '')
+
+  return safeHTML
 }
 
 function generateResumeHTML(resumeData: any, userData: any) {
-    const { content, role } = resumeData
+  const { content, role } = resumeData
 
-    const allSkills = [
-        ...(content.skills.frontend || []),
-        ...(content.skills.backend || []),
-        ...(content.skills.databases || []),
-        ...(content.skills.tools || []),
-        ...(content.skills.other || []),
-    ]
+  const allSkills = [
+    ...(content.skills.frontend || []),
+    ...(content.skills.backend || []),
+    ...(content.skills.databases || []),
+    ...(content.skills.tools || []),
+    ...(content.skills.other || []),
+  ]
 
-    const formatDate = (dateString: string | null) => {
-        if (!dateString) return null
-        const date = new Date(dateString)
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-        })
-    }
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return null
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  }
 
-    return `
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -348,13 +369,13 @@ function generateResumeHTML(resumeData: any, userData: any) {
             <div class="project-name">${project.repo_name}</div>
             ${project.technologies.length > 0 ? `<div class="technologies">${project.technologies.slice(0, 3).join(', ')}</div>` : ''}
           </div>
-          ${project.description ? `<div class="description">${project.description}</div>` : ''}
+          ${project.description ? `<div class="description">${sanitizeTiptapHTML(project.description)}</div>` : ''}
           ${project.bullets.length > 0 ? `
             <ul class="bullet-list">
               ${project.bullets.map((bullet: string) => `
                 <li class="bullet-item">
                   <span class="bullet">•</span>
-                  <span class="bullet-text">${bullet}</span>
+                  <span class="bullet-text">${sanitizeTiptapHTML(bullet)}</span>
                 </li>
               `).join('')}
             </ul>
@@ -372,7 +393,7 @@ function generateResumeHTML(resumeData: any, userData: any) {
         ${content.problems_solved.map((problem: string) => `
           <li class="bullet-item">
             <span class="bullet">•</span>
-            <span class="bullet-text">${problem}</span>
+            <span class="bullet-text">${sanitizeTiptapHTML(problem)}</span>
           </li>
         `).join('')}
       </ul>
@@ -400,13 +421,13 @@ function generateResumeHTML(resumeData: any, userData: any) {
             <div class="date-text">${work.start_date ? `${formatDate(work.start_date)} - ${work.end_date ? formatDate(work.end_date) : 'Present'}` : 'Date'}</div>
           </div>
           <div class="company">${work.company || 'Company Name'}</div>
-          ${work.description ? `<div class="description">${work.description}</div>` : ''}
+          ${work.description ? `<div class="description">${sanitizeTiptapHTML(work.description)}</div>` : ''}
           ${work.responsibilities && work.responsibilities.length > 0 ? `
             <ul class="bullet-list">
               ${work.responsibilities.map((resp: string) => `
                 <li class="bullet-item">
                   <span class="bullet">•</span>
-                  <span class="bullet-text">${resp}</span>
+                  <span class="bullet-text">${sanitizeTiptapHTML(resp)}</span>
                 </li>
               `).join('')}
             </ul>

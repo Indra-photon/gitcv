@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./tiptap-editor.css";
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Toaster } from "@/components/ui/sonner"
 import { NavBar } from "@/components/NavBar";
@@ -93,17 +94,17 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <NavBar />
-        <UserSync />
-        {children}
-        <GoogleTagManager gtmId="Your GTM ID" />
-        <Toaster position="top-right" />
-      </body>
-    </html>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <NavBar />
+          <UserSync />
+          {children}
+          <GoogleTagManager gtmId="Your GTM ID" />
+          <Toaster position="top-right" />
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

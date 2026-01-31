@@ -1,0 +1,40 @@
+/* Tiptap Editor Styles */
+
+.ProseMirror {
+    outline: none;
+}
+
+.ProseMirror p {
+    margin: 0;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Bold styling */
+.ProseMirror strong,
+.ProseMirror b {
+    font-weight: 700;
+}
+
+/* Italic styling */
+.ProseMirror em,
+.ProseMirror i {
+    font-style: italic;
+}
+
+/* Underline styling */
+.ProseMirror u {
+    text-decoration: underline;
+}
+
+/* Make sure formatting is visible in editor */
+.ProseMirror {
+    min-height: 40px;
+    line-height: 1.6;
+}
