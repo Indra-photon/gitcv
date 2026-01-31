@@ -39,11 +39,11 @@ interface ResumeEditorProps {
 
 export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
   const router = useRouter()
-  
-  
+
+
   // Get user data from Zustand store
   const { userProfile } = useUserStore()
-  
+
   const [resume, setResume] = useState(initialResume)
   const [isSaving, setIsSaving] = useState(false)
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
@@ -96,17 +96,48 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
     setIsExporting(true)
 
     try {
-      // TODO: Implement PDF export endpoint
-      toast.success('PDF export started')
-      
-      // Placeholder - replace with actual PDF generation
-      setTimeout(() => {
-        setIsExporting(false)
-        toast.success('PDF ready for download')
-      }, 2000)
+      toast.success('Generating PDF...')
+
+      // Call the API endpoint with resume data
+      const response = await fetch('/api/export-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          resumeId: resume._id,
+          resumeData: {
+            title: resume.title,
+            role: resume.role,
+            content: resume.content,
+          },
+          userData: userProfile,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to generate PDF')
+      }
+
+      // Get the PDF blob from response
+      const blob = await response.blob()
+
+      // Create download link
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `${resume.title || 'resume'}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+
+      setIsExporting(false)
+      toast.success('PDF downloaded successfully!')
     } catch (error: any) {
       console.error('Error exporting PDF:', error)
-      toast.error('Failed to export PDF')
+      toast.error('Failed to export PDF: ' + error.message)
       setIsExporting(false)
     }
   }
