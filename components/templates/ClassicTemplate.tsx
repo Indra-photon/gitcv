@@ -36,7 +36,7 @@
 //   ]
 
 //   console.log('Rendering ClassicTemplate with content:', userData);
-  
+
 
 //   return (
 //     <div className="p-12 space-y-6">
@@ -106,7 +106,7 @@
 //                     </span>
 //                   )}
 //                 </div>
-                
+
 //                 {project.description && (
 //                   <p className="text-sm text-neutral-700 text-pretty">
 //                     {project.description}
@@ -168,6 +168,7 @@
 import Link from 'next/link'
 import { CalSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
+import { sanitizeTiptapHTML } from '@/lib/tiptap-utils'
 
 interface Project {
   repo_name: string
@@ -207,14 +208,14 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
   console.log('Rendering ClassicTemplate with content:', userData)
 
   const formatDate = (dateString: string | null) => {
-  if (!dateString) return null
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'short', 
-    day: 'numeric' 
-  })
-}
+    if (!dateString) return null
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    })
+  }
 
   return (
     <div className="p-12 space-y-6">
@@ -225,24 +226,24 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
         </h1>
         <div className="text-sm text-neutral-600 flex flex-wrap gap-x-2 gap-y-1">
           <span>
-            {userData?.professional_headline || 
-            `${role.charAt(0).toUpperCase() + role.slice(1)} Developer`}
+            {userData?.professional_headline ||
+              `${role.charAt(0).toUpperCase() + role.slice(1)} Developer`}
           </span>
-          
+
           {userData?.location && (
             <>
               <span>|</span>
               <span>{userData.location}</span>
             </>
           )}
-          
+
           {userData?.phone && (
             <>
               <span>|</span>
               <span>{userData.phone}</span>
             </>
           )}
-          
+
           {userData?.email && (
             <>
               <span>|</span>
@@ -254,7 +255,7 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
 
         <div className="flex flex-wrap gap-x-2 gap-y-1 text-sm text-neutral-600">
           {userData?.github_username && (
-            <Link 
+            <Link
               href={`https://github.com/${userData.github_username}`}
               target="_blank"
               className="text-blue-600 hover:text-blue-800 hover:underline"
@@ -262,11 +263,11 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
               github.com/{userData.github_username}
             </Link>
           )}
-          
+
           {userData?.linkedin_url && (
             <>
               {userData?.github_username && <span>|</span>}
-              <Link 
+              <Link
                 href={userData.linkedin_url}
                 target="_blank"
                 className="text-blue-600 hover:text-blue-800 hover:underline"
@@ -275,11 +276,11 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
               </Link>
             </>
           )}
-          
+
           {userData?.portfolio_url && (
             <>
               {(userData?.github_username || userData?.linkedin_url) && <span>|</span>}
-              <Link 
+              <Link
                 href={userData.portfolio_url}
                 target="_blank"
                 className="text-blue-600 hover:text-blue-800 hover:underline"
@@ -326,9 +327,10 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
                 </div>
 
                 {project.description && (
-                  <p className={cn("text-sm text-neutral-900 text-pretty", CalSans.className)}>
-                    {project.description}
-                  </p>
+                  <p
+                    className={cn("text-sm text-neutral-900 text-pretty", CalSans.className)}
+                    dangerouslySetInnerHTML={{ __html: sanitizeTiptapHTML(project.description) }}
+                  />
                 )}
 
                 {project.bullets.length > 0 && (
@@ -336,7 +338,10 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
                     {project.bullets.map((bullet, bulletIdx) => (
                       <li key={bulletIdx} className={cn("text-sm text-neutral-700 text-pretty flex gap-2 font-regular")}>
                         <span className="text-neutral-400 select-none">•</span>
-                        <span className="flex-1">{bullet}</span>
+                        <span
+                          className="flex-1"
+                          dangerouslySetInnerHTML={{ __html: sanitizeTiptapHTML(bullet) }}
+                        />
                       </li>
                     ))}
                   </ul>
@@ -357,7 +362,10 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
             {content.problems_solved.map((problem, idx) => (
               <li key={idx} className={cn("text-sm text-neutral-700 text-pretty flex gap-2 font-regular")}>
                 <span className="text-neutral-400 select-none">•</span>
-                <span className="flex-1">{problem}</span>
+                <span
+                  className="flex-1"
+                  dangerouslySetInnerHTML={{ __html: sanitizeTiptapHTML(problem) }}
+                />
               </li>
             ))}
           </ul>
@@ -397,7 +405,7 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
                     {work.job_title || 'Position'}
                   </h3>
                   <span className={cn("text-sm text-neutral-600", CalSans.className)}>
-                    {work.start_date 
+                    {work.start_date
                       ? `${formatDate(work.start_date)} - ${work.end_date ? formatDate(work.end_date) : 'Present'}`
                       : 'Date'}
                   </span>
@@ -406,16 +414,20 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
                   {work.company || 'Company Name'}
                 </p>
                 {work.description && (
-                  <p className={cn("text-sm text-neutral-700 text-pretty", CalSans.className)}>
-                    {work.description}
-                  </p>
+                  <p
+                    className={cn("text-sm text-neutral-700 text-pretty", CalSans.className)}
+                    dangerouslySetInnerHTML={{ __html: sanitizeTiptapHTML(work.description) }}
+                  />
                 )}
                 {work.responsibilities && work.responsibilities.length > 0 && (
                   <ul className="space-y-1">
                     {work.responsibilities.map((resp: string, respIdx: number) => (
-                      <li className={cn("text-sm text-neutral-700 text-pretty flex gap-2", CalSans.className)}>
+                      <li key={respIdx} className={cn("text-sm text-neutral-700 text-pretty flex gap-2", CalSans.className)}>
                         <span className="text-neutral-400 select-none">•</span>
-                        <span className="flex-1">{resp}</span>
+                        <span
+                          className="flex-1"
+                          dangerouslySetInnerHTML={{ __html: sanitizeTiptapHTML(resp) }}
+                        />
                       </li>
                     ))}
                   </ul>
@@ -441,11 +453,11 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
                   </p>
                   {(edu.start_year || edu.end_year) && (
                     <p className={cn("text-sm text-neutral-600", CalSans.className)}>
-                      {edu.start_year && edu.end_year 
+                      {edu.start_year && edu.end_year
                         ? `${edu.start_year} - ${edu.end_year}`
-                        : edu.start_year 
-                        ? `${edu.start_year} - Present`
-                        : edu.end_year || ''}
+                        : edu.start_year
+                          ? `${edu.start_year} - Present`
+                          : edu.end_year || ''}
                     </p>
                   )}
                 </div>

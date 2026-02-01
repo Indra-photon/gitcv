@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SubHeading } from '@/components/SubHeading'
+import RichTextEditor from './RichTextEditor'
 
 interface Project {
   repo_name: string
@@ -95,6 +96,15 @@ export default function EditorPanel({ content, onContentChange }: EditorPanelPro
         <p className="text-sm text-neutral-600 mt-1">
           Click on any section to edit. Changes are saved automatically.
         </p>
+        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-xs text-blue-900 font-medium mb-1">💡 Formatting Tip</p>
+          <p className="text-xs text-blue-700">
+            Select any text to see the formatting toolbar. Use{' '}
+            <strong className="text-blue-900">Bold</strong>,{' '}
+            <em className="text-blue-900">Italic</em>, and{' '}
+            <span className="underline text-blue-900">Underline</span> to make your resume stand out!
+          </p>
+        </div>
       </div>
 
       <Accordion type="multiple" defaultValue={['projects', 'skills']} className="space-y-4">
@@ -128,13 +138,12 @@ export default function EditorPanel({ content, onContentChange }: EditorPanelPro
                         {project.repo_name}
                       </div>
                     )}
-                    
-                    <Textarea
+
+                    <RichTextEditor
                       value={project.description}
-                      onChange={(e) => handleUpdateProject(projectIdx, 'description', e.target.value)}
-                      className="text-sm resize-none"
-                      rows={2}
+                      onChange={(value) => handleUpdateProject(projectIdx, 'description', value)}
                       placeholder="Project description..."
+                      minHeight="80px"
                     />
                   </div>
 
@@ -167,16 +176,17 @@ export default function EditorPanel({ content, onContentChange }: EditorPanelPro
                   <div className="space-y-2">
                     {project.bullets.map((bullet, bulletIdx) => (
                       <div key={bulletIdx} className="flex items-start gap-2">
-                        {editingBulletIndex?.projectIdx === projectIdx && 
-                         editingBulletIndex?.bulletIdx === bulletIdx ? (
+                        {editingBulletIndex?.projectIdx === projectIdx &&
+                          editingBulletIndex?.bulletIdx === bulletIdx ? (
                           <>
-                            <Textarea
-                              value={bullet}
-                              onChange={(e) => handleUpdateBullet(projectIdx, bulletIdx, e.target.value)}
-                              className="flex-1 text-sm resize-none"
-                              rows={3}
-                              autoFocus
-                            />
+                            <div className="flex-1">
+                              <RichTextEditor
+                                value={bullet}
+                                onChange={(value) => handleUpdateBullet(projectIdx, bulletIdx, value)}
+                                placeholder="Bullet point..."
+                                minHeight="60px"
+                              />
+                            </div>
                             <Button
                               variant="ghost"
                               size="sm"
@@ -260,16 +270,18 @@ export default function EditorPanel({ content, onContentChange }: EditorPanelPro
           <AccordionContent className="space-y-3 pt-4">
             {content.problems_solved.map((problem, idx) => (
               <div key={idx} className="flex items-start gap-2">
-                <Textarea
-                  value={problem}
-                  onChange={(e) => {
-                    const updated = [...content.problems_solved]
-                    updated[idx] = e.target.value
-                    onContentChange({ ...content, problems_solved: updated })
-                  }}
-                  className="flex-1 text-sm resize-none"
-                  rows={2}
-                />
+                <div className="flex-1">
+                  <RichTextEditor
+                    value={problem}
+                    onChange={(value) => {
+                      const updated = [...content.problems_solved]
+                      updated[idx] = value
+                      onContentChange({ ...content, problems_solved: updated })
+                    }}
+                    placeholder="Achievement..."
+                    minHeight="60px"
+                  />
+                </div>
                 <Button
                   variant="ghost"
                   size="sm"
