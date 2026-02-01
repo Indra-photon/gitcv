@@ -23,18 +23,13 @@ export const navlinks = [
     icon: IconMessage2,
   },
   {
-    url: "/projects",
-    label: "Projects",
-    icon: IconBriefcase2,
-  },
-  {
     url: "/blog",
-    label: "Articles",
+    label: "Blogs",
     icon: IconArticle,
   },
-  {
-    url: "/contact",
-    label: "Contact",
-    icon: IconMail,
-  },
+  // {
+  //   url: "/contact",
+  //   label: "Contact",
+  //   icon: IconMail,
+  // },
 ];
