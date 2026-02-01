@@ -117,7 +117,7 @@ const AIGenerationCard = () => {
     <div className="bg-white rounded-3xl p-8 md:col-span-2 border-2 border-gray-200">
       {/* Header */}
       <div className="mb-8">
-        <SubHeading className="text-gray-900 mb-3 text-balance">
+        <SubHeading className="text-neutral-500 mb-3 text-balance">
           AI Transforms Your GitHub Into Professional Bullets
         </SubHeading>
         

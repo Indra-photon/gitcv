@@ -85,6 +85,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { SubHeading } from '@/components/SubHeading';
+import { Paragraph } from '@/components/Paragraph';
+import { Button } from '@/components/ui/button';
+import {IconArrowNarrowRightDashed} from '@tabler/icons-react';
 
 const TAILOR_MESSAGES = [
   { id: 1, text: "Role Specific", sub: "Matches Frontend, Backend, or Full-Stack focus" },
@@ -105,24 +109,24 @@ const RoleTailoringCard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-[#fdfaf3] border-[3px] border-black rounded-[3rem] p-10 flex flex-col items-center justify-between min-h-[500px] overflow-hidden">
+      <div className="bg-white border-2 border-gray-200 rounded-3xl p-10 flex flex-col items-center justify-between min-h-[550px] overflow-hidden">
         
         {/* Top Section: Icon & Heading */}
         <div className="text-center">
-          <div className="size-16 bg-black rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-[4px_4px_0px_0px_rgba(139,69,19,1)]">
+          <div className="size-16 bg-black rounded-2xl flex items-center justify-center mb-6 mx-auto">
             <svg className="text-white size-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
           </div>
-          <h2 className="text-3xl font-black uppercase tracking-tight">Tailored Intelligence</h2>
+          <SubHeading className="text-3xl text-neutral-500 font-black tracking-tight">Tailored Intelligence</SubHeading>
         </div>
 
         {/* Center Section: 3D Y-Axis Scrolling Text */}
         <div className="relative h-40 w-full flex flex-col items-center justify-center">
           {/* Fading Gradients to create the 'behind' effect */}
-          <div className="absolute top-0 w-full h-12 bg-gradient-to-b from-[#fdfaf3] to-transparent z-10 pointer-events-none" />
-          <div className="absolute bottom-0 w-full h-12 bg-gradient-to-t from-[#fdfaf3] to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 w-full h-12  z-10 pointer-events-none" />
+          <div className="absolute bottom-0 w-full h-12  z-10 pointer-events-none" />
 
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -133,12 +137,12 @@ const RoleTailoringCard = () => {
               transition={{ duration: 0.6, ease: shouldReduceMotion ? 'linear' : [0.34, 1.56, 0.64, 1] }}
               className="text-center"
             >
-              <h3 className="text-4xl font-black text-[#8B4513] mb-2 leading-none">
+              <SubHeading className="text-4xl font-black text-neutral-900 mb-2 leading-none">
                 {TAILOR_MESSAGES[index].text}
-              </h3>
-              <p className="text-gray-500 font-medium text-sm">
+              </SubHeading>
+              <Paragraph className="text-neutral-600 font-medium text-sm">
                 {TAILOR_MESSAGES[index].sub}
-              </p>
+              </Paragraph>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -169,16 +173,10 @@ const RoleTailoringCard = () => {
       </div>
 
       {/* CTA Button */}
-      <div className="flex justify-center">
-        <button className="group relative px-8 py-4 bg-black text-white rounded-2xl border-[3px] border-black font-bold text-lg  hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-          <span className="flex items-center gap-3">
-            <span>Try It Now</span>
-            <svg className="size-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </span>
-        </button>
-      </div>
+        <Button size="lg" className='w-full max-w-md text-2xl font-bold tracking-tighter flex items-center justify-center pb-1'>
+          Create Your Resume
+          <span className=' flex items-center justify-center'><IconArrowNarrowRightDashed className="size-6 ml-2" /></span>
+        </Button>
     </div>
   );
 };

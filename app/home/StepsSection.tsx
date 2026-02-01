@@ -90,6 +90,7 @@ import localFont from "next/font/local";
 import { IconKey, IconUserEdit, IconSparkles } from '@tabler/icons-react';
 import { Heading } from '@/components/Heading';
 import { Paragraph } from '@/components/Paragraph';
+import { Container } from '@/components/Container';
 
 // Font configuration as per UI_SKILLS.md
 const CalSans = localFont({
@@ -172,21 +173,69 @@ const StepsSection = () => {
   ];
 
   return (
-    <section className="py-24 px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16 relative">
-          <div className="absolute left-0 top-0 h-2 w-2 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none"></div>
-          <Heading className={`${CalSans.className} text-6xl font-black text-black tracking-tight mb-4 text-balance`}>
-            From GitHub to Resume in Minutes
-          </Heading>
-          <Paragraph className="text-2xl text-gray-600 font-medium max-w-3xl mx-auto text-pretty">
-            Transform your repositories into a polished, role-specific resume in just 10-15 minutes instead of hours of manual work.
-          </Paragraph>
-        </div>
+    <Container>
+      <div className="max-w-7xl mx-auto relative overflow-hidden">
 
+        <div className=" w-full relative">
+            {/* Dashed Grid */}
+            <div
+              className="absolute inset-0 z-0"
+              style={{
+                backgroundImage: `
+                  linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+                  linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+                `,
+                backgroundSize: "20px 20px",
+                backgroundPosition: "0 0, 0 0",
+                maskImage: `
+                  repeating-linear-gradient(
+                    to right,
+                    black 0px,
+                    black 3px,
+                    transparent 3px,
+                    transparent 8px
+                  ),
+                  repeating-linear-gradient(
+                    to bottom,
+                    black 0px,
+                    black 3px,
+                    transparent 3px,
+                    transparent 8px
+                  )
+                `,
+                WebkitMaskImage: `
+                  repeating-linear-gradient(
+                    to right,
+                    black 0px,
+                    black 3px,
+                    transparent 3px,
+                    transparent 8px
+                  ),
+                  repeating-linear-gradient(
+                    to bottom,
+                    black 0px,
+                    black 3px,
+                    transparent 3px,
+                    transparent 8px
+                  )
+                `,
+                maskComposite: "intersect",
+                WebkitMaskComposite: "source-in",
+              }}
+            />
+            {/* Section Header */}
+            <div className="text-center mb-16 relative overflow-hidden border-t border-b border-stone-600 py-8">
+              <div className="absolute left-0 top-0 h-2 w-2 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none"></div>
+              <Heading className={`${CalSans.className} text-6xl font-black text-neutral-900 tracking-tight mb-2 text-balance`}>
+                From GitHub to Resume in Minutes
+              </Heading>
+              <Paragraph className="text-2xl text-neutral-600 font-medium max-w-3xl mx-auto text-pretty">
+                Transform your repositories into a polished, role-specific resume in just 10-15 minutes instead of hours of manual work.
+              </Paragraph>
+            </div>
+        </div>
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 px-12">
           {steps.map((step) => (
             <StepCard 
               key={step.number}
@@ -198,7 +247,7 @@ const StepsSection = () => {
           ))}
         </div>
       </div>
-    </section>
+    </Container>
   );
 };
 

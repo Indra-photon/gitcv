@@ -2,6 +2,9 @@ import Image from "next/image";
 import HeroComponent from "./home/HeroComponent";
 import StepsSection from "./home/StepsSection";
 import BentoSection from "./home/BentoSection";
+import PricingSection from "./home/PricingSection";
+import Footer from "@/components/Footer";
+import FAQSection from "./home/FAQSection";
 
 export default function Home() {
   return (
@@ -9,6 +12,9 @@ export default function Home() {
       <HeroComponent />
       <StepsSection />
       <BentoSection />
+      <PricingSection />
+      <FAQSection />
+      <Footer />
     </div>
   );
 }
