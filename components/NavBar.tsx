@@ -9,6 +9,7 @@ import { useUserStore } from "@/lib/store"
 import { useClerk } from "@clerk/nextjs"
 import { LogOut, User as UserIcon } from "lucide-react"
 
+
 interface NavItem {
   label: string
   href: string
@@ -84,14 +85,14 @@ export function NavBar({
                   key={item.href}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                  transition={{ duration: 0.5 }}
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
                   className="relative"
                 >
                   <Link
                     href={item.href}
-                    className="text-foreground/70 hover:text-foreground transition-colors duration-200 text-sm font-medium"
+                    className="text-neutral-500 hover:text-neutral-700 transition-colors duration-200 text-sm font-bold"
                   >
                     {item.label}
                   </Link>
