@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { GripVertical, Plus, Trash2, Edit2, Check, X } from 'lucide-react'
+import { GripVertical, Plus, Trash2, Edit2, Check, X, Github, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -13,6 +13,7 @@ import RichTextEditor from './RichTextEditor'
 interface Project {
   repo_name: string
   repo_url: string
+  live_url?: string
   description: string
   bullets: string[]
   technologies: string[]
@@ -96,15 +97,6 @@ export default function EditorPanel({ content, onContentChange }: EditorPanelPro
         <p className="text-sm text-neutral-600 mt-1">
           Click on any section to edit. Changes are saved automatically.
         </p>
-        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-xs text-blue-900 font-medium mb-1">💡 Formatting Tip</p>
-          <p className="text-xs text-blue-700">
-            Select any text to see the formatting toolbar. Use{' '}
-            <strong className="text-blue-900">Bold</strong>,{' '}
-            <em className="text-blue-900">Italic</em>, and{' '}
-            <span className="underline text-blue-900">Underline</span> to make your resume stand out!
-          </p>
-        </div>
       </div>
 
       <Accordion type="multiple" defaultValue={['projects', 'skills']} className="space-y-4">
@@ -123,19 +115,72 @@ export default function EditorPanel({ content, onContentChange }: EditorPanelPro
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 space-y-2">
                     {editingProjectIndex === projectIdx ? (
-                      <Input
-                        value={project.repo_name}
-                        onChange={(e) => handleUpdateProject(projectIdx, 'repo_name', e.target.value)}
-                        onBlur={() => setEditingProjectIndex(null)}
-                        autoFocus
-                        className="font-medium"
-                      />
+                      <div className="space-y-2">
+                        <div className="flex gap-2 items-center">
+                          <Input
+                            value={project.repo_name}
+                            onChange={(e) => handleUpdateProject(projectIdx, 'repo_name', e.target.value)}
+                            autoFocus
+                            className="font-medium h-9"
+                            placeholder="Project Name"
+                          />
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            className="size-9 shrink-0"
+                            onClick={() => setEditingProjectIndex(null)}
+                            title="Done"
+                          >
+                            <Check className="size-4 text-green-600" />
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            value={project.repo_url}
+                            onChange={(e) => handleUpdateProject(projectIdx, 'repo_url', e.target.value)}
+                            className="text-sm"
+                            placeholder="GitHub Link (e.g., https://github.com/username/repo)"
+                          />
+                          <Input
+                            value={project.live_url || ''}
+                            onChange={(e) => handleUpdateProject(projectIdx, 'live_url', e.target.value)}
+                            className="text-sm"
+                            placeholder="Live Link (e.g., https://myapp.com)"
+                          />
+                        </div>
+                      </div>
                     ) : (
                       <div
                         onClick={() => setEditingProjectIndex(projectIdx)}
-                        className="font-medium text-neutral-900 cursor-pointer hover:text-neutral-600 transition-colors"
+                        className="font-medium text-neutral-900 cursor-pointer hover:text-neutral-600 transition-colors group select-none"
                       >
-                        {project.repo_name}
+                        <div className="flex items-center gap-2">
+                          {project.repo_name || "Untitled Project"}
+                          <Edit2 className="size-3 opacity-0 group-hover:opacity-100 transition-opacity text-neutral-400" />
+                        </div>
+                        <div className="text-xs font-normal mt-1 flex flex-wrap gap-3 items-center">
+                          {project.repo_url ? (
+                            <span className="flex items-center gap-1 text-neutral-700 bg-neutral-100 px-1.5 py-0.5 rounded border border-neutral-200">
+                              <Github className="size-3" />
+                              <span className="truncate max-w-[150px]">{project.repo_url.replace('https://github.com/', '')}</span>
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1 text-neutral-400 hover:text-blue-600 transition-colors">
+                              <Plus className="size-3" /> Add GitHub
+                            </span>
+                          )}
+
+                          {project.live_url ? (
+                            <span className="flex items-center gap-1 text-neutral-700 bg-neutral-100 px-1.5 py-0.5 rounded border border-neutral-200">
+                              <Globe className="size-3" />
+                              <span className="truncate max-w-[150px]">Live Link</span>
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1 text-neutral-400 hover:text-blue-600 transition-colors">
+                              <Plus className="size-3" /> Add Live Link
+                            </span>
+                          )}
+                        </div>
                       </div>
                     )}
 

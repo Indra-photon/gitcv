@@ -169,10 +169,12 @@ import Link from 'next/link'
 import { CalSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import { sanitizeTiptapHTML } from '@/lib/tiptap-utils'
+import { Github, Globe } from 'lucide-react'
 
 interface Project {
   repo_name: string
   repo_url: string
+  live_url?: string
   description: string
   bullets: string[]
   technologies: string[]
@@ -315,15 +317,29 @@ export default function ClassicTemplate({ content, role, userData }: ClassicTemp
           <div className="space-y-4">
             {content.projects.map((project, idx) => (
               <div key={idx} className="space-y-2">
-                <div className="flex items-baseline justify-between gap-4">
+                <div className="flex items-start justify-between gap-4">
                   <h3 className={cn("text-xl text-neutral-900", CalSans.className)}>
                     {project.repo_name}
                   </h3>
-                  {project.technologies.length > 0 && (
-                    <span className={cn("text-sm text-neutral-600 italic", CalSans.className)}>
-                      {project.technologies.slice(0, 3).join(', ')}
-                    </span>
-                  )}
+                  <div className="flex flex-col items-end gap-1">
+                    {project.technologies.length > 0 && (
+                      <span className={cn("text-sm text-neutral-600 italic text-right", CalSans.className)}>
+                        {project.technologies.slice(0, 3).join(', ')}
+                      </span>
+                    )}
+                    <div className="flex gap-2">
+                      {project.repo_url && (
+                        <Link href={project.repo_url} target="_blank" className="text-neutral-500 hover:text-neutral-900 transition-colors">
+                          <Github className="w-4 h-4" />
+                        </Link>
+                      )}
+                      {project.live_url && (
+                        <Link href={project.live_url} target="_blank" className="text-neutral-500 hover:text-neutral-900 transition-colors">
+                          <Globe className="w-4 h-4" />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 {project.description && (
