@@ -8,6 +8,7 @@ import { navlinks } from "@/constants/navlinks"
 import { useUserStore } from "@/lib/store"
 import { useClerk } from "@clerk/nextjs"
 import { LogOut, User as UserIcon } from "lucide-react"
+import Image from "next/image"
 
 
 interface NavItem {
@@ -75,7 +76,12 @@ export function NavBar({
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Link href="/" className="text-xl font-bold text-foreground">
-                Logo
+                <Image
+                  src="/Logo.png"
+                  alt="Logo"
+                  width={40}
+                  height={20}
+                />
               </Link>
             </motion.div>
 
