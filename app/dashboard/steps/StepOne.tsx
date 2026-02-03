@@ -2,14 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Lock, Edit, Briefcase, GraduationCap, Award, Languages, MapPin, Globe, Linkedin, Phone, Mail } from 'lucide-react'
+import { Lock, Edit, Briefcase, GraduationCap, Award, Languages, MapPin, Globe, Linkedin, Phone, Mail, Github, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ResumeRole, RESUME_ROLES } from '@/constants/limit'
-import {SubHeading} from '@/components/SubHeading'
+import { SubHeading } from '@/components/SubHeading'
 import { cn } from '@/lib/utils'
 import { CalSans } from '@/lib/fonts'
 
@@ -71,6 +71,31 @@ export default function StepOne({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {userProfile.full_name && (
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50">
+              <User className="size-4 text-neutral-600 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <p className={cn("text-sm text-neutral-500", CalSans.className)}>Full Name</p>
+                <p className={cn("text-sm text-neutral-900 truncate", CalSans.className)}>{userProfile.full_name}</p>
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50">
+            <Github className="size-4 text-neutral-600 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <p className={cn("text-sm text-neutral-500", CalSans.className)}>GitHub</p>
+              <a
+                href={`https://github.com/${userProfile.github_username}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn("text-sm text-blue-600 hover:text-blue-700 truncate block", CalSans.className)}
+              >
+                {userProfile.github_username}
+              </a>
+            </div>
+          </div>
+
           {/* Personal Info */}
           {userProfile.phone && (
             <div className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50">
@@ -97,7 +122,7 @@ export default function StepOne({
               <Globe className="size-4 text-neutral-600 mt-0.5" />
               <div className="flex-1 min-w-0">
                 <p className={cn("text-sm text-neutral-500", CalSans.className)}>Portfolio</p>
-                <a 
+                <a
                   href={userProfile.portfolio_url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -114,7 +139,7 @@ export default function StepOne({
               <Linkedin className="size-4 text-neutral-600 mt-0.5" />
               <div className="flex-1 min-w-0">
                 <p className={cn("text-sm text-neutral-500", CalSans.className)}>LinkedIn</p>
-                <a 
+                <a
                   href={userProfile.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -229,7 +254,7 @@ export default function StepOne({
         <div>
           <SubHeading className='text-neutral-600'>Job Description (Optional)</SubHeading>
           <p className={cn("text-sm text-neutral-600 mt-1", CalSans.className)}>
-            {isPaid 
+            {isPaid
               ? 'Paste the job description to tailor your resume with AI matching'
               : 'Upgrade to Premium to unlock AI-powered job description matching'
             }
@@ -244,7 +269,7 @@ export default function StepOne({
             disabled={!isPaid}
             className={`min-h-[120px] resize-none ${!isPaid ? 'blur-sm cursor-not-allowed' : ''}`}
           />
-          
+
           {!isPaid && (
             <div className={cn("absolute inset-0 flex items-center justify-center bg-white/70", CalSans.className)}>
               <Button
@@ -283,11 +308,10 @@ export default function StepOne({
                 htmlFor={option.value}
                 className="cursor-pointer"
               >
-                <div className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-colors ${
-                  selectedRole === option.value
-                    ? 'border-neutral-900 bg-neutral-50'
-                    : 'border-neutral-200 hover:border-neutral-300'
-                }`}>
+                <div className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-colors ${selectedRole === option.value
+                  ? 'border-neutral-900 bg-neutral-50'
+                  : 'border-neutral-200 hover:border-neutral-300'
+                  }`}>
                   <RadioGroupItem value={option.value} id={option.value} />
                   <span className="text-sm font-medium text-neutral-900">{option.label}</span>
                 </div>
@@ -314,11 +338,10 @@ export default function StepOne({
                 htmlFor={option.value}
                 className="cursor-pointer"
               >
-                <div className={`flex flex-col gap-1 p-4 rounded-lg border-2 transition-colors ${
-                  experienceLevel === option.value
-                    ? 'border-neutral-900 bg-neutral-50'
-                    : 'border-neutral-200 hover:border-neutral-300'
-                }`}>
+                <div className={`flex flex-col gap-1 p-4 rounded-lg border-2 transition-colors ${experienceLevel === option.value
+                  ? 'border-neutral-900 bg-neutral-50'
+                  : 'border-neutral-200 hover:border-neutral-300'
+                  }`}>
                   <RadioGroupItem value={option.value} id={option.value} className="sr-only" />
                   <span className="text-sm font-medium text-neutral-900">{option.label}</span>
                   <span className="text-xs text-neutral-600">{option.description}</span>

@@ -14,6 +14,7 @@ export interface IProject {
   description: string;
   bullets: string[];
   technologies: string[];
+  live_url?: string;
 }
 
 export interface IResumeContent {
@@ -40,28 +41,28 @@ export interface IResume extends Document {
   _id: mongoose.Types.ObjectId;
   user_id: mongoose.Types.ObjectId;
   job_description_id?: mongoose.Types.ObjectId; // Optional reference to JobDescription
-  
+
   // Resume Details
   title: string;
   role: ResumeRole;
   template: TemplateType;
-  
+
   // Repository Selection
   selected_repos: string[]; // Array of GitHub repo URLs
-  
+
   // Generated Content
   content: IResumeContent;
-  
+
   // Status
   status: ResumeStatus;
-  
+
   // AI Metadata
   ai_metadata: IAIMetadata;
-  
+
   // PDF Storage
   pdf_url: string | null;
   pdf_expires_at: Date | null; // null for paid users (never expires)
-  
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -87,6 +88,10 @@ const ProjectSchema = new Schema<IProject>(
     technologies: {
       type: [String],
       default: []
+    },
+    live_url: {
+      type: String,
+      default: ''
     }
   },
   { _id: false }
@@ -127,65 +132,65 @@ const ResumeSchema = new Schema<IResume>(
       required: true,
       index: true
     },
-    
+
     job_description_id: {
       type: Schema.Types.ObjectId,
       ref: 'JobDescription',
       default: null
     },
-    
+
     title: {
       type: String,
       required: true,
       trim: true
     },
-    
+
     role: {
       type: String,
       enum: Object.values(RESUME_ROLES),
       required: true
     },
-    
+
     template: {
       type: String,
       enum: Object.values(TEMPLATE_TYPES),
       default: TEMPLATE_TYPES.DEFAULT,
       required: true
     },
-    
+
     selected_repos: {
       type: [String],
       required: true,
       validate: {
-        validator: function(v: string[]) {
+        validator: function (v: string[]) {
           return v.length >= 3;
         },
         message: 'At least 3 repositories must be selected'
       }
     },
-    
+
     content: {
       type: Schema.Types.Mixed,
       required: true
     },
-    
+
     status: {
       type: String,
       enum: Object.values(RESUME_STATUS),
       default: RESUME_STATUS.SAVED,
       required: true
     },
-    
+
     ai_metadata: {
       type: AIMetadataSchema,
       required: true
     },
-    
+
     pdf_url: {
       type: String,
       default: null
     },
-    
+
     pdf_expires_at: {
       type: Date,
       default: null
@@ -199,7 +204,7 @@ const ResumeSchema = new Schema<IResume>(
 ResumeSchema.index({ user_id: 1, createdAt: -1 });
 ResumeSchema.index({ pdf_expires_at: 1 }); // For cleanup cron job
 
-const ResumeModel: Model<IResume> = 
+const ResumeModel: Model<IResume> =
   mongoose.models.Resume || mongoose.model<IResume>('Resume', ResumeSchema);
 
 export default ResumeModel;
