@@ -14,6 +14,7 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import { UserSync } from "@/components/UserSync";
+import Script from 'next/script'
 
 
 const geistSans = Geist({
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
     description: "I am a Full Stack Developer and Gen AI specialist with expertise in React, Next.js, Node.js, and AI integration for scalable web applications. I build modern, responsive, and fast websites that drive results. I focus on microinteractions, animations , and user-centric design to create engaging digital experiences.",
     images: [
       {
-        url: "/images/profileOG.jpeg",
+        url: "/Logo.png",
         width: 1200,
         height: 630,
         alt: "Indranil Maiti - Full Stack Developer and GenAI Specialist"
@@ -69,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Indranil Maiti | Full Stack & GenAI Developer",
     description: "Building scalable web applications and AI-driven solutions with modern technologies.",
-    images: ["/images/profileOG.jpeg"],
+    images: ["/Logo.png"],
     creator: "@Nil_phy_dreamer"
   },
   robots: {
@@ -102,6 +103,7 @@ export default function RootLayout({
           <UserSync />
           {children}
           <GoogleTagManager gtmId="Your GTM ID" />
+          <Script src="https://cloud.umami.is/script.js" data-website-id="9d2e381e-ed5b-4571-84fc-610ba02bc3cf" />
           <Toaster position="top-right" />
         </body>
       </html>
