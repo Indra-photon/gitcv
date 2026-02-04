@@ -63,11 +63,11 @@ export const PRICING_CARDS: PricingCard[] = [
         text: '1 ATS-Friendly Template',
         included: true
       },
-      {
-        text: `PDF Storage: ${FREE_PDF_EXPIRY_DAYS} Days`,
-        included: true,
-        tooltip: 'PDFs are automatically deleted after 15 days'
-      },
+      // {
+      //   text: `PDF Storage: ${FREE_PDF_EXPIRY_DAYS} Days`,
+      //   included: true,
+      //   tooltip: 'PDFs are automatically deleted after 15 days'
+      // },
       {
         text: 'GitHub Profile Integration',
         included: true
@@ -122,7 +122,7 @@ export const PRICING_CARDS: PricingCard[] = [
     name: 'Premium Monthly',
     tagline: 'Unlimited resumes for active job seekers',
     price: PRICING.PREMIUM_MONTHLY,
-    displayPrice: '$10',
+    displayPrice: `$${(PRICING.PREMIUM_MONTHLY / 100)}`,
     billingCycle: 'month',
     badge: {
       text: 'Most Popular',
@@ -144,11 +144,11 @@ export const PRICING_CARDS: PricingCard[] = [
         text: '5 Premium Templates',
         included: true
       },
-      {
-        text: 'Permanent PDF Storage',
-        included: true,
-        highlight: true
-      },
+      // {
+      //   text: 'Permanent PDF Storage',
+      //   included: true,
+      //   highlight: true
+      // },
       {
         text: 'Edit Anytime',
         included: true
@@ -214,7 +214,7 @@ export const PRICING_CARDS: PricingCard[] = [
     name: 'Premium Annual',
     tagline: 'Best value for continuous career growth',
     price: PRICING.PREMIUM_ANNUAL,
-    displayPrice: '$50',
+    displayPrice: `$${(PRICING.PREMIUM_ANNUAL / 100)}`,
     billingCycle: 'year',
     savings: '$70 (58% off)',
     badge: {
@@ -239,10 +239,10 @@ export const PRICING_CARDS: PricingCard[] = [
         text: '5 Premium Templates',
         included: true
       },
-      {
-        text: 'Permanent PDF Storage',
-        included: true
-      },
+      // {
+      //   text: 'Permanent PDF Storage',
+      //   included: true
+      // },
       {
         text: 'Edit Anytime',
         included: true
@@ -311,7 +311,7 @@ export const PRICING_CARDS: PricingCard[] = [
     name: 'Lifetime Deal',
     tagline: 'Pay once, use forever',
     price: PRICING.LIFETIME,
-    displayPrice: '$49',
+    displayPrice: `$${(PRICING.LIFETIME / 100)}`,
     billingCycle: 'once',
     badge: {
       text: 'Limited: 500 Left',

@@ -105,6 +105,38 @@ interface StepCardProps {
   icon?: React.ReactNode;
 }
 
+const ConnectIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 6.827 6.827"
+      style={{
+        shapeRendering: "geometricPrecision",
+        textRendering: "geometricPrecision",
+        fillRule: "evenodd",
+        clipRule: "evenodd"
+      }}
+    >
+      <path style={{ fill: "#424242" }} d="M0 0h6.827v6.827H0z" />
+      <g id="Layer_x0020_1">
+        <path
+          className="fil1"
+          style={{ fill: "#fffffe", fillRule: "nonzero" }}
+          d="M3.413 5.348a.107.107 0 0 0 0 .214h1.122c.312 0 .596-.128.802-.334a1.132 1.132 0 0 0 0-1.604 1.132 1.132 0 0 0-.802-.334H2.292a.92.92 0 0 1-.651-.27.92.92 0 0 1 .651-1.575h1.121a.107.107 0 0 0 0-.213h-1.12c-.313 0-.597.128-.803.334a1.132 1.132 0 0 0 0 1.604c.206.206.49.334.802.334h2.243a.92.92 0 0 1 .651.27.92.92 0 0 1-.651 1.574H3.413z"
+        />
+        <path
+          className="fil1"
+          style={{ fill: "#fffffe", fillRule: "nonzero" }}
+          d="M3.839.853h1.176c.059 0 .106.048.106.107v.823a.107.107 0 0 1-.106.107H3.839a.106.106 0 0 1-.082-.038l-.406-.418.076-.074-.076.074a.107.107 0 0 1 .008-.156l.406-.394.074.076-.074-.077c.02-.02.047-.03.074-.03zm1.07.214H3.881l-.304.295.306.315h1.024v-.61zM2.992 5.15H1.966v.61H2.99l.306-.315-.304-.295zM1.86 4.937h1.176c.027 0 .054.01.074.03l-.074.076.074-.076.406.394a.107.107 0 0 1 .008.156l-.076-.074.076.074-.406.418a.106.106 0 0 1-.082.038H1.859a.107.107 0 0 1-.107-.106v-.824c0-.058.048-.106.107-.106z"
+        />
+        <path style={{ fill: "none" }} d="M0 0h6.827v6.827H0z" />
+      </g>
+    </svg>
+  );
+}
+
 const StepCard = ({ stepNumber, title, description, icon }: StepCardProps) => {
   return (
     <div className="relative w-full max-w-[350px] group">
@@ -156,7 +188,7 @@ const StepsSection = () => {
       number: '01', 
       title: 'Connect GitHub', 
       description: 'Sign up in seconds and link your GitHub account via OAuth.', 
-      icon: <IconKey size={48} /> 
+      icon: <IconKey size={48} />
     },
     { 
       number: '02', 
@@ -173,8 +205,7 @@ const StepsSection = () => {
   ];
 
   return (
-    <Container>
-      <div className="max-w-7xl mx-auto relative overflow-hidden">
+      <Container className=" relative overflow-hidden border-l border-r border-stone-300">
 
         <div className=" w-full relative">
             {/* Dashed Grid */}
@@ -227,10 +258,10 @@ const StepsSection = () => {
             <div className="text-center mb-16 relative overflow-hidden border-t border-b border-stone-600 py-8">
               <div className="absolute left-0 top-0 h-2 w-2 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none"></div>
               <Heading className={`${CalSans.className} text-6xl font-black text-neutral-900 tracking-tight mb-2 text-balance`}>
-                From GitHub to Resume in Minutes
+                3 simple steps, you get hired.
               </Heading>
               <Paragraph className="text-2xl text-neutral-600 font-medium max-w-3xl mx-auto text-pretty">
-                Transform your repositories into a polished, role-specific resume in just 10-15 minutes instead of hours of manual work.
+                Follow these easy steps to create your professional resume from your GitHub repositories.
               </Paragraph>
             </div>
         </div>
@@ -246,8 +277,7 @@ const StepsSection = () => {
             />
           ))}
         </div>
-      </div>
-    </Container>
+      </Container>
   );
 };
 
