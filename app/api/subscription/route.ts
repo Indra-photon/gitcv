@@ -49,6 +49,9 @@ export async function GET() {
         tier: subscription.tier,
         status: subscription.status,
         is_premium: !isFree,
+        dodo_customer_id: subscription.dodo_customer_id,
+        dodo_subscription_id: subscription.dodo_subscription_id,
+        dodo_payment_id: subscription.dodo_payment_id,
         features: {
           job_description_upload: !isFree,
           pdf_expiration: isFree ? '15 days' : 'never',

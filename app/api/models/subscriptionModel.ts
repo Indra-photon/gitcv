@@ -147,8 +147,9 @@ export interface ISubscription extends Document {
   // Billing Information
   current_period_start: Date | null;
   current_period_end: Date | null;
-  stripe_customer_id: string | null;
-  stripe_subscription_id: string | null;
+  dodo_customer_id: string | null;
+  dodo_subscription_id: string | null;
+  dodo_payment_id: string | null;
   
   createdAt: Date;
   updatedAt: Date;
@@ -215,14 +216,18 @@ const SubscriptionSchema = new Schema<ISubscription>(
       type: Date,
       default: null
     },
-    stripe_customer_id: {
+    dodo_customer_id: {
       type: String,
       default: null
     },
-    stripe_subscription_id: {
+    dodo_subscription_id: {
       type: String,
       default: null
-    }
+    },
+    dodo_payment_id: {
+      type: String,
+      default: null
+    },
   },
   {
     timestamps: true
