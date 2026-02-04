@@ -378,7 +378,7 @@ const ComparisonTable = () => {
     { name: 'Resume Slots', free: '3', premium: 'Unlimited' },
     { name: 'AI Quality', free: 'Standard (80-85%)', premium: 'Advanced (100%)' },
     { name: 'Templates', free: '1 ATS Template', premium: '5 Premium Templates' },
-    { name: 'PDF Storage', free: '15 Days', premium: 'Permanent' },
+    // { name: 'PDF Storage', free: '15 Days', premium: 'Permanent' },
     { name: 'Edit After Save', free: false, premium: true },
     { name: 'Delete Resumes', free: false, premium: true },
     { name: 'Job Description Upload', free: false, premium: true },
@@ -460,7 +460,7 @@ const PricingSection = ({
   const lifetimeCard = PRICING_CARDS.find(c => c.tier === SUBSCRIPTION_TIERS.LIFETIME);
 
   return (
-    <Container className="w-full py-20">
+    <Container className="w-full border-l border-r border-stone-300 py-24">
       <div className="max-w-7xl mx-auto">
         
         <div className="w-full relative">

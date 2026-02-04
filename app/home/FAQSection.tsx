@@ -64,7 +64,7 @@ const faqs: FAQ[] = [
 
 const FAQSection = () => {
   return (
-    <Container className="w-full py-20">
+    <Container className="w-full border-l border-r border-stone-300 py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Main Grid */}

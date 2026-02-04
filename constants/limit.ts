@@ -1,8 +1,8 @@
 // Tier Limits and Configuration Constants
 
 // Free Tier Limits
-export const FREE_GENERATION_ATTEMPTS_LIMIT = 5;
-export const FREE_SAVED_RESUMES_LIMIT = 3;
+export const FREE_GENERATION_ATTEMPTS_LIMIT = 3;
+export const FREE_SAVED_RESUMES_LIMIT = 1;
 export const FREE_PDF_EXPIRY_DAYS = 15;
 export const FREE_DRAFTS_LIMIT = 3;
 export const FREE_DRAFTS_PER_DAY_LIMIT = 5;
@@ -61,7 +61,7 @@ export const TEMPLATE_TYPES = {
 export const PRICING = {
   PREMIUM_MONTHLY: 1000, // $10.00
   PREMIUM_ANNUAL: 5000, // $50.00
-  LIFETIME: 4900 // $49.00
+  LIFETIME: 6900 // $49.00
 } as const;
 
 // Types
