@@ -251,6 +251,12 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
                 Save
               </Button>
 
+              <Link href={`/pdf-preview?id=${resume._id}`} target="_blank">
+                <Button variant="outline">
+                  Preview PDF
+                </Button>
+              </Link>
+
               <Button onClick={handleExportPDF} disabled={isExporting}>
                 {isExporting ? (
                   <>

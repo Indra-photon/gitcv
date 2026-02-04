@@ -6,16 +6,26 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Paragraph } from '@/components/Paragraph'
-import { 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
   FileText,
   Calendar,
   Download,
   Eye,
   AlertCircle,
-  Loader2
+  Loader2,
+  Trash2
 } from 'lucide-react'
 import localFont from "next/font/local"
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 
 const CalSans = localFont({
   src: [{ path: "../../../fonts/CalSans-SemiBold.woff2" }],
@@ -38,6 +48,9 @@ export default function GeneratedResumeSection() {
   const [resumes, setResumes] = useState<Resume[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [resumeToDelete, setResumeToDelete] = useState<Resume | null>(null)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
     fetchResumes()
@@ -60,6 +73,37 @@ export default function GeneratedResumeSection() {
       setError(err.message)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleDeleteClick = (resume: Resume) => {
+    setResumeToDelete(resume)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (!resumeToDelete) return
+
+    setIsDeleting(true)
+    try {
+      const response = await fetch(`/api/resume/${resumeToDelete._id}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.error || 'Failed to delete resume')
+      }
+
+      // Remove the deleted resume from the list
+      setResumes(prev => prev.filter(r => r._id !== resumeToDelete._id))
+      toast.success('Resume deleted successfully')
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to delete resume')
+    } finally {
+      setIsDeleting(false)
+      setDeleteDialogOpen(false)
+      setResumeToDelete(null)
     }
   }
 
@@ -110,170 +154,224 @@ export default function GeneratedResumeSection() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="border-neutral-200 bg-white">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className={cn("text-sm text-neutral-500", CalSans.className)}>Total Resumes</p>
-                <p className={cn("text-3xl font-semibold text-neutral-900", CalSans.className)}>
-                  {resumes.length}
-                </p>
+    <>
+      <div className="space-y-6">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="border-neutral-200 bg-white">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className={cn("text-sm text-neutral-500", CalSans.className)}>Total Resumes</p>
+                  <p className={cn("text-3xl font-semibold text-neutral-900", CalSans.className)}>
+                    {resumes.length}
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg bg-neutral-100">
+                  <FileText className="size-6 text-neutral-600" />
+                </div>
               </div>
-              <div className="p-3 rounded-lg bg-neutral-100">
-                <FileText className="size-6 text-neutral-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        <Card className="border-neutral-200 bg-white">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className={cn("text-sm text-neutral-500", CalSans.className)}>This Month</p>
-                <p className={cn("text-3xl font-semibold text-neutral-900", CalSans.className)}>
-                  {resumes.filter(r => {
-                    const createdDate = new Date(r.created_at)
-                    const now = new Date()
-                    return createdDate.getMonth() === now.getMonth() && 
-                           createdDate.getFullYear() === now.getFullYear()
-                  }).length}
-                </p>
+          <Card className="border-neutral-200 bg-white">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className={cn("text-sm text-neutral-500", CalSans.className)}>This Month</p>
+                  <p className={cn("text-3xl font-semibold text-neutral-900", CalSans.className)}>
+                    {resumes.filter(r => {
+                      const createdDate = new Date(r.created_at)
+                      const now = new Date()
+                      return createdDate.getMonth() === now.getMonth() &&
+                        createdDate.getFullYear() === now.getFullYear()
+                    }).length}
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg bg-blue-50">
+                  <Calendar className="size-6 text-blue-600" />
+                </div>
               </div>
-              <div className="p-3 rounded-lg bg-blue-50">
-                <Calendar className="size-6 text-blue-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
+          <Card className="border-neutral-200 bg-white">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className={cn("text-sm text-neutral-500", CalSans.className)}>Available PDFs</p>
+                  <p className={cn("text-3xl font-semibold text-neutral-900", CalSans.className)}>
+                    {resumes.filter(r => r.pdf_url && !isPdfExpired(r.pdf_expires_at)).length}
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg bg-green-50">
+                  <Download className="size-6 text-green-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Resumes List */}
         <Card className="border-neutral-200 bg-white">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className={cn("text-sm text-neutral-500", CalSans.className)}>Available PDFs</p>
-                <p className={cn("text-3xl font-semibold text-neutral-900", CalSans.className)}>
-                  {resumes.filter(r => r.pdf_url && !isPdfExpired(r.pdf_expires_at)).length}
+          <CardHeader>
+            <CardTitle className="text-xl text-neutral-900">
+              <Paragraph className='text-neutral-900'>Your Resumes</Paragraph>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {resumes.length > 0 ? (
+              <div className="space-y-4">
+                {resumes.map((resume) => (
+                  <div
+                    key={resume._id}
+                    className="p-4 border border-neutral-200 rounded-lg hover:border-neutral-300 transition-colors"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div className="flex items-start gap-3">
+                          <div className="mt-1 p-2 rounded-lg bg-neutral-100">
+                            <FileText className="size-5 text-neutral-600" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className={cn("text-base font-semibold text-neutral-900", CalSans.className)}>
+                              {resume.title}
+                            </h3>
+                            <div className="flex flex-wrap items-center gap-2 mt-2">
+                              <Badge className={cn("capitalize", getRoleBadgeColor(resume.role))}>
+                                {resume.role}
+                              </Badge>
+                              <Badge variant="outline" className="capitalize text-neutral-600 border-neutral-300">
+                                {resume.template}
+                              </Badge>
+                              <span className={cn("text-sm text-neutral-500", CalSans.className)}>
+                                Created {formatDate(resume.created_at)}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* PDF Status */}
+                        {resume.pdf_expires_at && (
+                          <div className={cn(
+                            "flex items-center gap-2 text-sm px-3 py-2 rounded-lg",
+                            isPdfExpired(resume.pdf_expires_at)
+                              ? "bg-red-50 text-red-700"
+                              : "bg-amber-50 text-amber-700"
+                          )}>
+                            <AlertCircle className="size-4" />
+                            <span className={CalSans.className}>
+                              {isPdfExpired(resume.pdf_expires_at)
+                                ? 'PDF expired'
+                                : `PDF expires ${formatDate(resume.pdf_expires_at)}`
+                              }
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex gap-2">
+                        {/* Delete Button */}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 hover:border-red-300"
+                          onClick={() => handleDeleteClick(resume)}
+                        >
+                          <Trash2 className="size-4" />
+                        </Button>
+
+                        {/* View Button */}
+                        <Link href={`/dashboard/resume/${resume._id}/edit`}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-neutral-700 border-neutral-300"
+                          >
+                            <Eye className="size-4 mr-2" />
+                            View
+                          </Button>
+                        </Link>
+
+                        {/* Download Button */}
+                        {resume.pdf_url && !isPdfExpired(resume.pdf_expires_at) && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            asChild
+                            className="text-neutral-700 border-neutral-300"
+                          >
+                            <a href={resume.pdf_url} download aria-label="Download PDF">
+                              <Download className="size-4" />
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="inline-flex p-4 rounded-full bg-neutral-100 mb-4">
+                  <FileText className="size-8 text-neutral-400" />
+                </div>
+                <h3 className={cn("text-lg font-medium text-neutral-900 mb-2", CalSans.className)}>
+                  No resumes yet
+                </h3>
+                <p className={cn("text-sm text-neutral-500 mb-6", CalSans.className)}>
+                  Generate your first resume to get started
                 </p>
+                <Link href="/dashboard">
+                  <Button className="bg-neutral-900 hover:bg-neutral-800 text-white">
+                    Generate Resume
+                  </Button>
+                </Link>
               </div>
-              <div className="p-3 rounded-lg bg-green-50">
-                <Download className="size-6 text-green-600" />
-              </div>
-            </div>
+            )}
           </CardContent>
         </Card>
       </div>
 
-      {/* Resumes List */}
-      <Card className="border-neutral-200 bg-white">
-        <CardHeader>
-          <CardTitle className="text-xl text-neutral-900">
-            <Paragraph className='text-neutral-900'>Your Resumes</Paragraph>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {resumes.length > 0 ? (
-            <div className="space-y-4">
-              {resumes.map((resume) => (
-                <div 
-                  key={resume._id}
-                  className="p-4 border border-neutral-200 rounded-lg hover:border-neutral-300 transition-colors"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-1 p-2 rounded-lg bg-neutral-100">
-                          <FileText className="size-5 text-neutral-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className={cn("text-base font-semibold text-neutral-900", CalSans.className)}>
-                            {resume.title}
-                          </h3>
-                          <div className="flex flex-wrap items-center gap-2 mt-2">
-                            <Badge className={cn("capitalize", getRoleBadgeColor(resume.role))}>
-                              {resume.role}
-                            </Badge>
-                            <Badge variant="outline" className="capitalize text-neutral-600 border-neutral-300">
-                              {resume.template}
-                            </Badge>
-                            <span className={cn("text-sm text-neutral-500", CalSans.className)}>
-                              Created {formatDate(resume.created_at)}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* PDF Status */}
-                      {resume.pdf_expires_at && (
-                        <div className={cn(
-                          "flex items-center gap-2 text-sm px-3 py-2 rounded-lg",
-                          isPdfExpired(resume.pdf_expires_at)
-                            ? "bg-red-50 text-red-700"
-                            : "bg-amber-50 text-amber-700"
-                        )}>
-                          <AlertCircle className="size-4" />
-                          <span className={CalSans.className}>
-                            {isPdfExpired(resume.pdf_expires_at)
-                              ? 'PDF expired'
-                              : `PDF expires ${formatDate(resume.pdf_expires_at)}`
-                            }
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex gap-2">
-                      <Link href={`/dashboard/resume/${resume._id}/edit`}>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="text-neutral-700 border-neutral-300"
-                        >
-                          <Eye className="size-4 mr-2" />
-                          View
-                        </Button>
-                      </Link>
-                      {resume.pdf_url && !isPdfExpired(resume.pdf_expires_at) && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          asChild
-                          className="text-neutral-700 border-neutral-300"
-                        >
-                          <a href={resume.pdf_url} download aria-label="Download PDF">
-                            <Download className="size-4" />
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="inline-flex p-4 rounded-full bg-neutral-100 mb-4">
-                <FileText className="size-8 text-neutral-400" />
-              </div>
-              <h3 className={cn("text-lg font-medium text-neutral-900 mb-2", CalSans.className)}>
-                No resumes yet
-              </h3>
-              <p className={cn("text-sm text-neutral-500 mb-6", CalSans.className)}>
-                Generate your first resume to get started
-              </p>
-              <Link href="/dashboard">
-                <Button className="bg-neutral-900 hover:bg-neutral-800 text-white">
-                  Generate Resume
-                </Button>
-              </Link>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Resume</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete &quot;{resumeToDelete?.title}&quot;? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteDialogOpen(false)}
+              disabled={isDeleting}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteConfirm}
+              disabled={isDeleting}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="size-4 mr-2 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                <>
+                  <Trash2 className="size-4 mr-2" />
+                  Delete
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
