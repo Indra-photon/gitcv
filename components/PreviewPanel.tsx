@@ -5,6 +5,7 @@ import { ZoomIn, ZoomOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { TEMPLATE_TYPES } from '@/constants/limit'
 import ClassicTemplate from './templates/ClassicTemplate'
+import HarvardTemplate from './templates/HarvardTemplate'
 // import ModernTemplate from './templates/ModernTemplate'
 // import MinimalTemplate from './templates/MinimalTemplate'
 // import CreativeTemplate from './templates/CreativeTemplate'
@@ -49,16 +50,18 @@ export default function PreviewPanel({ resume, userData }: PreviewPanelProps) {
     switch (resume.template) {
       case TEMPLATE_TYPES.DEFAULT:
         return <ClassicTemplate {...templateProps} />
-    //   case TEMPLATE_TYPES.MODERN:
-    //     return <ModernTemplate {...templateProps} />
-    //   case TEMPLATE_TYPES.MINIMAL:
-    //     return <MinimalTemplate {...templateProps} />
-    //   case TEMPLATE_TYPES.CREATIVE:
-    //     return <CreativeTemplate {...templateProps} />
-    //   case TEMPLATE_TYPES.ACADEMIC:
-    //     return <AcademicTemplate {...templateProps} />
-    //   case TEMPLATE_TYPES.EXECUTIVE:
-    //     return <ExecutiveTemplate {...templateProps} />
+      case TEMPLATE_TYPES.HARVARD:
+        return <HarvardTemplate {...templateProps} />
+      //   case TEMPLATE_TYPES.MODERN:
+      //     return <ModernTemplate {...templateProps} />
+      //   case TEMPLATE_TYPES.MINIMAL:
+      //     return <MinimalTemplate {...templateProps} />
+      //   case TEMPLATE_TYPES.CREATIVE:
+      //     return <CreativeTemplate {...templateProps} />
+      //   case TEMPLATE_TYPES.ACADEMIC:
+      //     return <AcademicTemplate {...templateProps} />
+      //   case TEMPLATE_TYPES.EXECUTIVE:
+      //     return <ExecutiveTemplate {...templateProps} />
       default:
         return <ClassicTemplate {...templateProps} />
     }

@@ -112,6 +112,7 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
             content: resume.content,
           },
           userData: userProfile,
+          template: resume.template, // Pass the template for proper styling
         }),
       })
 
@@ -214,6 +215,7 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={TEMPLATE_TYPES.DEFAULT}>Classic ATS</SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.HARVARD}>Harvard ATS</SelectItem>
                   <SelectItem value={TEMPLATE_TYPES.MODERN}>Modern Professional</SelectItem>
                   <SelectItem value={TEMPLATE_TYPES.MINIMAL}>Minimal Clean</SelectItem>
                   <SelectItem value={TEMPLATE_TYPES.CREATIVE}>Creative Designer</SelectItem>
@@ -250,6 +252,12 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
                 <Save className="size-4 mr-2" />
                 Save
               </Button>
+
+              <Link href={`/pdf-preview?id=${resume._id}`} target="_blank">
+                <Button variant="outline">
+                  Preview PDF
+                </Button>
+              </Link>
 
               <Button onClick={handleExportPDF} disabled={isExporting}>
                 {isExporting ? (

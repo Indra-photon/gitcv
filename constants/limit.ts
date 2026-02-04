@@ -54,7 +54,8 @@ export const TEMPLATE_TYPES = {
   MINIMAL: 'minimal',
   CREATIVE: 'creative',
   ACADEMIC: 'academic',
-  EXECUTIVE: 'executive'
+  EXECUTIVE: 'executive',
+  HARVARD: 'harvard'  // New ATS-optimized Harvard template
 } as const;
 
 // Pricing (in USD cents)
