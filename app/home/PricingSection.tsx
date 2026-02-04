@@ -14,6 +14,7 @@ import { PRICING_CARDS, type PricingCard, SUBSCRIPTION_TIERS } from '@/constants
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useState } from 'react';
 import { CalSans } from '@/lib/fonts';
+import { toast } from 'sonner';
 
 interface PricingSectionProps {
   APPLICATION_FORM_URL?: string;
@@ -105,9 +106,11 @@ const BillingToggle = ({
 };
 
 const PremiumCard = ({ 
-  billingCycle 
+  billingCycle,
+  handleUpgrade
 }: { 
-  billingCycle: BillingCycle 
+  billingCycle: BillingCycle;
+  handleUpgrade: (tier: string) => void;
 }) => {
   const monthlyCard = PRICING_CARDS.find(c => c.tier === SUBSCRIPTION_TIERS.PREMIUM_MONTHLY);
   const annualCard = PRICING_CARDS.find(c => c.tier === SUBSCRIPTION_TIERS.PREMIUM_ANNUAL);
@@ -258,6 +261,7 @@ const PremiumCard = ({
         <Button
           className={cn("w-full bg-neutral-900 text-white hover:bg-neutral-800 tracking-tighter", CalSans.className)}
           size="lg"
+          onClick={() => handleUpgrade(billingCycle === 'monthly' ? 'premium_monthly' : 'premium_annual')}
         >
           {activeCard.cta.text}
         </Button>
@@ -266,7 +270,15 @@ const PremiumCard = ({
   );
 };
 
-const StaticPricingCard = ({ card, index }: { card: PricingCard; index: number }) => {
+const StaticPricingCard = ({ 
+  card, 
+  index,
+  handleUpgrade 
+}: { 
+  card: PricingCard; 
+  index: number;
+  handleUpgrade: (tier: string) => void;
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -364,6 +376,7 @@ const StaticPricingCard = ({ card, index }: { card: PricingCard; index: number }
           <Button
             className={cn("w-full bg-white text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-50 tracking-tighter", CalSans.className)}
             size="lg"
+            onClick={() => handleUpgrade(card.tier === SUBSCRIPTION_TIERS.FREE ? 'free' : 'lifetime')}
           >
             {card.cta.text}
           </Button>
@@ -459,6 +472,34 @@ const PricingSection = ({
   const freeCard = PRICING_CARDS.find(c => c.tier === SUBSCRIPTION_TIERS.FREE);
   const lifetimeCard = PRICING_CARDS.find(c => c.tier === SUBSCRIPTION_TIERS.LIFETIME);
 
+  const handleUpgrade = async (tier: string) => {
+  try {
+    const response = await fetch('/api/checkout/create-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tier })
+    })
+
+    if (response.status === 401) {
+      toast.error('Please sign in to start')
+      window.location.href = '/sign-in'
+      return
+    }
+
+    if (!response.ok) {
+      const error = await response.json()
+      toast.error(error.error || 'Failed to start checkout')
+      return
+    }
+
+    const { checkout_url } = await response.json()
+    window.location.href = checkout_url
+  } catch (error) {
+    console.error('Checkout error:', error)
+    toast.error('Failed to start checkout. Please try again.')
+  }
+}
+
   return (
     <Container className="w-full border-l border-r border-stone-300 py-24">
       <div className="max-w-7xl mx-auto">
@@ -528,13 +569,13 @@ const PricingSection = ({
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-12">
           {/* Free Card */}
-          {freeCard && <StaticPricingCard card={freeCard} index={0} />}
+          {freeCard && <StaticPricingCard card={freeCard} index={0} handleUpgrade={handleUpgrade} />}
           
           {/* Premium Card (Animated) */}
-          <PremiumCard billingCycle={billingCycle} />
+          <PremiumCard billingCycle={billingCycle} handleUpgrade={handleUpgrade} />
           
           {/* Lifetime Card */}
-          {lifetimeCard && <StaticPricingCard card={lifetimeCard} index={2} />}
+          {lifetimeCard && <StaticPricingCard card={lifetimeCard} index={2} handleUpgrade={handleUpgrade} />}
         </div>
 
         {/* Comparison Table */}

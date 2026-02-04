@@ -50,6 +50,8 @@ interface UserProfile {
 interface Subscription {
   tier: string
   status: string
+  dodo_customer_id: string | null
+  dodo_subscription_id: string | null
   generation_attempts_used: number
   generation_attempts_limit: number
   saved_resumes_count: number
