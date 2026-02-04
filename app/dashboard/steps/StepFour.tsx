@@ -27,6 +27,13 @@ const TEMPLATES = [
     layout: 'single-column'
   },
   {
+    value: TEMPLATE_TYPES.HARVARD,
+    label: 'Harvard ATS',
+    description: 'Ultra ATS-optimized. Maximum compatibility with all hiring systems.',
+    free: true,
+    layout: 'harvard-ats'
+  },
+  {
     value: TEMPLATE_TYPES.MODERN,
     label: 'Modern Professional',
     description: 'Two-column layout with sidebar. Contemporary and compact.',
@@ -63,11 +70,11 @@ const TEMPLATES = [
   }
 ]
 
-function TemplatePreview({ 
-  template, 
-  isSelected, 
-  isLocked 
-}: { 
+function TemplatePreview({
+  template,
+  isSelected,
+  isLocked
+}: {
   template: typeof TEMPLATES[0]
   isSelected: boolean
   isLocked: boolean
@@ -113,6 +120,45 @@ function TemplatePreview({
               <div className="h-2 w-full bg-neutral-200 rounded" />
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Harvard ATS - Simple, clean, ultra-ATS-friendly */}
+      {template.layout === 'harvard-ats' && (
+        <div className="p-4 space-y-2">
+          {/* Header - Name centered with line */}
+          <div className="space-y-1 text-center border-b border-neutral-300 pb-2">
+            <div className="h-4 w-32 bg-neutral-900 rounded mx-auto" />
+            <div className="h-1.5 w-48 bg-neutral-400 rounded mx-auto" />
+          </div>
+          {/* Summary */}
+          <div className="space-y-1 pt-1">
+            <div className="h-2 w-16 bg-neutral-800 rounded" />
+            <div className="h-1.5 w-full bg-neutral-200 rounded" />
+            <div className="h-1.5 w-4/5 bg-neutral-200 rounded" />
+          </div>
+          {/* Experience */}
+          <div className="space-y-1 pt-1 border-t border-neutral-200">
+            <div className="h-2 w-20 bg-neutral-800 rounded" />
+            <div className="flex justify-between">
+              <div className="h-1.5 w-24 bg-neutral-500 rounded" />
+              <div className="h-1.5 w-16 bg-neutral-400 rounded" />
+            </div>
+            <div className="h-1.5 w-full bg-neutral-200 rounded" />
+          </div>
+          {/* Education */}
+          <div className="space-y-1 pt-1 border-t border-neutral-200">
+            <div className="h-2 w-20 bg-neutral-800 rounded" />
+            <div className="flex justify-between">
+              <div className="h-1.5 w-28 bg-neutral-500 rounded" />
+              <div className="h-1.5 w-12 bg-neutral-400 rounded" />
+            </div>
+          </div>
+          {/* Skills */}
+          <div className="space-y-1 pt-1 border-t border-neutral-200">
+            <div className="h-2 w-12 bg-neutral-800 rounded" />
+            <div className="h-1.5 w-full bg-neutral-300 rounded" />
+          </div>
         </div>
       )}
 
@@ -249,7 +295,7 @@ function TemplatePreview({
       {template.layout === 'two-column-premium' && (
         <div className="flex h-full">
           {/* Premium Sidebar */}
-          <div className="w-2/5 bg-gradient-to-b from-neutral-800 to-neutral-900 p-3 space-y-3 text-white">
+          <div className="w-2/5 bg-linear-to-b from-neutral-800 to-neutral-900 p-3 space-y-3 text-white">
             <div className="size-12 bg-white/20 rounded-full mx-auto" />
             <div className="h-3 w-full bg-white rounded mx-auto" />
             <div className="space-y-1">
@@ -322,7 +368,7 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
 
     try {
       // console.log('Reseume ID being updated:', resumeId);
-      
+
       // Update resume with selected template
       const response = await fetch(`/api/resume/${resumeId}`, {
         method: 'PATCH',
@@ -357,8 +403,8 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
         <SubHeading className="text-balance">Choose Your Template</SubHeading>
         <p className="text-sm text-neutral-600 text-pretty">
           {isPaid
-            ? 'Select from 6 professional templates'
-            : 'Select from 2 free templates or upgrade for 4 more premium options'}
+            ? 'Select from 7 professional templates'
+            : 'Select from 3 free templates or upgrade for 4 more premium options'}
         </p>
       </div>
 

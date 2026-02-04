@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   let browser = null
 
   try {
-    const { resumeId, resumeData, userData } = await request.json()
+    const { resumeId, resumeData, userData, template } = await request.json()
 
     if (!resumeData || !userData) {
       return NextResponse.json(
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log('Starting PDF generation...')
+    console.log('Starting PDF generation with template:', template || 'default')
 
     // Launch Puppeteer browser
     browser = await puppeteer.launch({
@@ -39,8 +39,8 @@ export async function POST(request: NextRequest) {
       deviceScaleFactor: 2, // High resolution
     })
 
-    // Generate HTML using the shared generator
-    const html = generateResumeHTML(resumeData, userData)
+    // Generate HTML using the shared generator with template support
+    const html = generateResumeHTML(resumeData, userData, template)
 
     // Set the HTML content
     await page.setContent(html, {

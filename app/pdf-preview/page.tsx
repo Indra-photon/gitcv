@@ -28,7 +28,8 @@ function PDFPreviewContent() {
     // Generate HTML when resume or userProfile changes
     useEffect(() => {
         if (resume && userProfile) {
-            const html = generateResumeHTML(resume, userProfile)
+            // Pass the template from the resume data
+            const html = generateResumeHTML(resume, userProfile, resume.template)
             setHtmlContent(html)
         }
     }, [resume, userProfile])
