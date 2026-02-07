@@ -388,7 +388,7 @@ const StaticPricingCard = ({
 
 const ComparisonTable = () => {
   const features = [
-    { name: 'Resume Slots', free: '3', premium: 'Unlimited' },
+    { name: 'Resume Slots', free: '1', premium: 'Unlimited' },
     { name: 'AI Quality', free: 'Standard (80-85%)', premium: 'Advanced (100%)' },
     { name: 'Templates', free: '1 ATS Template', premium: '5 Premium Templates' },
     // { name: 'PDF Storage', free: '15 Days', premium: 'Permanent' },
@@ -593,7 +593,7 @@ const PricingSection = ({
         </div>
 
         {/* FAQ or Additional Info */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -616,7 +616,7 @@ const PricingSection = ({
               </Button>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Lifetime Deal Urgency Banner */}
         {/* <motion.div

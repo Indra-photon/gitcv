@@ -31,7 +31,7 @@ function StatisticsCard() {
       {/* Content */}
       <div className="relative z-10 mb-4">
         <div className="text-7xl font-bold text-white mb-2 tabular-nums">
-          30 Minutes
+          We save your TIME.
         </div>
         <Paragraph className="text-gray-300 text-xl text-balance max-w-2xl">
           Create tailored resumes for every role you apply to
@@ -58,7 +58,7 @@ function StatisticsCard() {
         <div className="text-green-400 text-3xl rotate-90 md:rotate-0">→</div>
         
         <div className="flex-1 bg-green-500/10 rounded-2xl p-6 border border-green-500/30">
-          <Paragraph variant='muted' className="text-green-400 text-sm mb-2">With DevCV</Paragraph>
+          <Paragraph variant='muted' className="text-green-400 text-sm mb-2">With GitCVs</Paragraph>
           <Paragraph className="text-neutral-300 text-2xl font-bold tabular-nums">30 min<span className='text-xs pl-2'>/resume</span></Paragraph>
         </div>
       </div>

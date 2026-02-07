@@ -89,6 +89,9 @@ import { SubHeading } from '@/components/SubHeading';
 import { Paragraph } from '@/components/Paragraph';
 import { Button } from '@/components/ui/button';
 import {IconArrowNarrowRightDashed} from '@tabler/icons-react';
+import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
 
 const TAILOR_MESSAGES = [
   { id: 1, text: "Role Specific", sub: "Matches Frontend, Backend, or Full-Stack focus" },
@@ -99,6 +102,9 @@ const TAILOR_MESSAGES = [
 const RoleTailoringCard = () => {
   const [index, setIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+  const [isNavigating, setIsNavigating] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -106,6 +112,16 @@ const RoleTailoringCard = () => {
     }, 3000);
     return () => clearInterval(timer);
   }, []);
+
+  const handleGetStarted = () => {
+    setIsNavigating(true);
+    
+    if (isSignedIn) {
+      router.push('/dashboard');
+    } else {
+      router.push('/sign-in');
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -173,9 +189,30 @@ const RoleTailoringCard = () => {
       </div>
 
       {/* CTA Button */}
-        <Button size="lg" className='w-full max-w-md text-2xl font-bold tracking-tighter flex items-center justify-center pb-1'>
+        {/* <Button size="lg" className='w-full max-w-md text-2xl font-bold tracking-tighter flex items-center justify-center pb-1'>
           Create Your Resume
           <span className=' flex items-center justify-center'><IconArrowNarrowRightDashed className="size-6 ml-2" /></span>
+        </Button> */}
+        {/* CTA Button */}
+        <Button 
+          onClick={handleGetStarted}
+          disabled={!isLoaded || isNavigating}
+          size="lg" 
+          className='w-full max-w-md text-2xl font-bold tracking-tighter flex items-center justify-center pb-1 disabled:opacity-50 disabled:cursor-not-allowed'
+        >
+          {isNavigating ? (
+            <>
+              <Loader2 className="size-6 animate-spin mr-2" />
+              Loading...
+            </>
+          ) : (
+            <>
+              Create Your Resume
+              <span className='flex items-center justify-center'>
+                <IconArrowNarrowRightDashed className="size-6 ml-2" />
+              </span>
+            </>
+          )}
         </Button>
     </div>
   );

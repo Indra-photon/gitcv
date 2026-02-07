@@ -28,63 +28,155 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.indrabuildswebsites.com/"),
-  title: "Indranil Maiti | Full Stack & GenAI Developer",
-  description: "I am a Full Stack Developer and Gen AI specialist with expertise in React, Next.js, Node.js, and AI integration for scalable web applications. I build modern, responsive, and fast websites that drive results. I focus on microinteractions, animations , and user-centric design to create engaging digital experiences. I integrate AI technologies, Google Search Console, Google Analytics, Google Tag Manager, and SEO best practices to enhance website performance and user engagement.",
+  metadataBase: new URL("https://git-cv.com/"), // Update with your actual domain
+  title: {
+    default: "GitHub Resume Builder | Transform Your Repos into Professional Resumes in Minutes",
+    template: "%s | GitHub Resume Builder"
+  },
+  description: "AI-powered resume builder for developers. Transform your GitHub repositories into professional, ATS-friendly resumes in 10-15 minutes. Perfect for CS students, bootcamp graduates, and junior developers.",
   keywords: [
-    "GenAI developer",
-    "Full stack web developer",
-    "Google Analytics",
-    "Google Tag Manager",
-    "Google Search Console",
-    "SEO specialist",
-    "React developer",
-    "Next.js developer",
-    "Node.js developer",
-    "AI integration",
-    "Scalable web applications",
-    "Modern web technologies",
-    "Freelance developer",
-    "Responsive web design",
-    "Web development services",
-    "Digital experiences",
-    "User-centric design",
-    "Microinteractions",
-    "Web animations"
+    // Primary Keywords
+    "GitHub resume builder",
+    "AI resume generator",
+    "developer resume builder",
+    "ATS-friendly resume",
+    "tech resume generator",
+    
+    // Target Audience
+    "CS student resume",
+    "bootcamp graduate resume",
+    "junior developer resume",
+    "software engineer resume",
+    "developer portfolio",
+    
+    // Features
+    "GitHub integration",
+    "AI-powered resume",
+    "role-specific resume",
+    "resume from GitHub projects",
+    "code portfolio to resume",
+    "automated resume builder",
+    
+    // Use Cases
+    "resume for developers",
+    "programming resume",
+    "tech job resume",
+    "software development resume",
+    "GitHub projects resume",
+    
+    // Technologies
+    "Next.js resume builder",
+    "React resume generator",
+    "TypeScript resume builder",
+    
+    // Long-tail
+    "how to create resume from GitHub",
+    "best resume builder for developers",
+    "free developer resume builder",
+    "ATS resume for tech jobs"
   ],
-  openGraph: {
-    title: "Indranil Maiti | Full Stack & GenAI Developer",
-    description: "I am a Full Stack Developer and Gen AI specialist with expertise in React, Next.js, Node.js, and AI integration for scalable web applications. I build modern, responsive, and fast websites that drive results. I focus on microinteractions, animations , and user-centric design to create engaging digital experiences.",
-    images: [
-      {
-        url: "/Logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Indranil Maiti - Full Stack Developer and GenAI Specialist"
-      }
-    ],
-    type: "website",
-    locale: "en_US"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Indranil Maiti | Full Stack & GenAI Developer",
-    description: "Building scalable web applications and AI-driven solutions with modern technologies.",
-    images: ["/Logo.png"],
-    creator: "@Nil_phy_dreamer"
-  },
-  robots: {
-    index: true,
-    follow: true
-  },
+  
   authors: [
     {
-      name: "Indranil Maiti",
-      url: "https://github.com/Indra-photon"
+      name: "GitHub Resume Builder Team",
+      url: "https://git-cv.com/" // Update with your GitHub
     }
   ],
+  
+  creator: "GitHub Resume Builder",
+  publisher: "GitHub Resume Builder",
+  
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://git-cv.com/",
+    siteName: "GitHub Resume Builder",
+    title: "GitHub Resume Builder | AI-Powered Resumes from Your Code",
+    description: "Transform your GitHub repositories into professional, ATS-friendly resumes in 10-15 minutes. AI-powered, role-specific, and designed for developers.",
+    images: [
+      {
+        url: "/Logo.png", // Main OG image (1200x630px recommended)
+        width: 1200,
+        height: 630,
+        alt: "GitHub Resume Builder - Transform Your Code into Professional Resumes",
+        type: "image/png"
+      },
+      {
+        url: "/Logo.png", // Square variant for social media
+        width: 1200,
+        height: 1200,
+        alt: "GitHub Resume Builder Logo",
+        type: "image/png"
+      }
+    ]
+  },
+  
+  twitter: {
+    card: "summary_large_image",
+    title: "GitHub Resume Builder | AI-Powered Resumes from Your Code",
+    description: "Transform GitHub repos into professional, ATS-friendly resumes in minutes. Built for CS students, bootcamp grads, and junior developers.",
+    images: ["/twitter-image.png"], // 1200x675px recommended
+    creator: "@Nil_phy_dreamer", // Update with your Twitter handle
+    site: "@Nil_phy_dreamer"
+  },
+  
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  
+  icons: {
+    icon: [
+      { url: "/Logo.png", sizes: "16x16", type: "image/png" },
+      { url: "/Logo.png", sizes: "32x32", type: "image/png" }
+    ],
+    apple: [
+      { url: "/Logo.png", sizes: "180x180", type: "image/png" }
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg",
+        color: "#000000"
+      }
+    ]
+  },
+  
+  manifest: "/site.webmanifest",
+  
+  alternates: {
+    canonical: "https://git-cv.com/",
+    languages: {
+      'en-US': 'https://git-cv.com/',
+    }
+  },
+  
   verification: {
-    google: "nRI3uI23PmnAb9gJVCWJI0_OKTObahkZIlcSwnhmqJo"
+    google: "your-google-verification-code", // Add your Google Search Console verification
+    // yandex: "your-yandex-verification-code",
+    // bing: "your-bing-verification-code",
+  },
+  
+  category: "Technology",
+  
+  // Additional metadata for enhanced SEO
+  other: {
+    "application-name": "GitHub Resume Builder",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "GitHub Resume",
+    "format-detection": "telephone=no",
+    "mobile-web-app-capable": "yes",
+    "msapplication-TileColor": "#000000",
+    "msapplication-tap-highlight": "no",
+    "theme-color": "#000000"
   }
 };
 

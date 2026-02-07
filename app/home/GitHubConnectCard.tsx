@@ -33,7 +33,7 @@ const GitHubConnectCard = () => {
     <div className="relative bg-white rounded-3xl p-8 border-2 border-gray-200 hover:border-gray-300 transition-colors overflow-hidden">
       
       {/* Animated Repository Cards (Behind Content) */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      {/* <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         {repositories.map((repo, index) => (
           <motion.div
             key={repo.id}
@@ -69,7 +69,7 @@ const GitHubConnectCard = () => {
             <MiniRepoCard {...repo} />
           </motion.div>
         ))}
-      </div>
+      </div> */}
 
       {/* Static Content (In Front) */}
       <div className="relative z-10 flex flex-col h-full">
