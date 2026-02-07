@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useUserStore } from '@/lib/store'
 
+export const dynamic = 'force-dynamic'
+
 export default function SuccessPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
