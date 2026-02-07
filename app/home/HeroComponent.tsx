@@ -93,34 +93,73 @@
 
 // export default HeroComponent;
 
+'use client';
+
 import { ResumeIllustration } from "./ResumeIllustration";
+import { useUser } from '@clerk/nextjs';  // ADD THIS
+import { useRouter } from 'next/navigation';  // ADD THIS
+import { ArrowRight, Loader2 } from 'lucide-react';  // ADD THIS
+import { useState } from 'react';  // ADD THIS
+import { Container } from "@/components/Container";
+import { Heading } from "@/components/Heading";
 
 const HeroComponent = () => {
+  const { isSignedIn, isLoaded } = useUser()
+  const router = useRouter()
+  const [isNavigating, setIsNavigating] = useState(false)
+
+  const handleGetStarted = () => {
+    setIsNavigating(true)
+    
+    if (isSignedIn) {
+      router.push('/dashboard')
+    } else {
+      router.push('/sign-in')
+    }
+  }
   return (
-    <section className="relative w-full min-h-dvh flex flex-col px-6 md:px-12 lg:px-16 overflow-hidden bg-stone-50 ">
+    <Container className="relative w-full min-h-dvh flex flex-col px-6 md:px-12 lg:px-16 overflow-hidden bg-stone-50 border-l border-r border-stone-200">
       {/* Top section - Text content */}
       <div className="w-full max-w-5xl mx-auto text-center mb-8 flex-shrink-0 ">
-        <h1 className="text-stone-900 leading-tight tracking-tight text-balance text-4xl md:text-5xl lg:text-6xl font-light mb-6 py-12">
-          Create <span className="text-stone-800 italic font-normal">Resume</span> from Your GitHub in Minutes
-        </h1>
+        <Heading className="text-neutral-800 leading-tight tracking-tight text-balance text-4xl md:text-5xl lg:text-6xl font-light mb-8 pt-36">
+          Create Tailored <span className="text-stone-800 italic font-normal">Resume</span> Fast <br />
+          <span className="text-stone-800 font-sans">AI creates the copy. You add the polish.</span>
+        </Heading>
 
-        <p className="text-stone-600 text-pretty text-lg md:text-xl font-medium mb-8 max-w-2xl mx-auto">
+        {/* <p className="text-stone-600 text-pretty text-lg md:text-xl font-medium mb-8 max-w-2xl mx-auto">
           You don{"'"}t spend hours crafting resumes to apply for jobs, bootcamps, or internships. Why should we?
-        </p>
+        </p> */}
 
         <div className="flex flex-row flex-wrap gap-4 justify-center">
           <span className="inline-block px-5 py-2.5 bg-stone-100 rounded-full text-sm text-stone-600 font-medium border border-stone-200">
             For CS Students & Developers
           </span>
 
-          <button className="px-6 py-2.5 bg-stone-900 text-stone-50 rounded-full hover:bg-stone-800 transition-colors text-base font-medium">
+          {/* <button className="px-6 py-2.5 bg-stone-900 text-stone-50 rounded-full hover:bg-stone-800 transition-colors text-base font-medium">
             Start Building Your Resume
+          </button> */}
+          <button 
+            onClick={handleGetStarted}
+            disabled={!isLoaded || isNavigating}
+            className="self-start px-6 py-2.5 bg-stone-900 text-stone-50 rounded-full hover:bg-stone-800 transition-colors text-base font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            {isNavigating ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                Loading...
+              </>
+            ) : (
+              <>
+                Start Building Your Resume
+                <ArrowRight className="size-4" />
+              </>
+            )}
           </button>
         </div>
       </div>
 
       {/* Bottom section - Large Illustration */}
-      <div className="flex-1 w-full flex items-center justify-center min-h-[500px] md:min-h-[550px] lg:min-h-[600px] ">
+      <div className="flex-1 w-full flex items-center justify-center min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
         <div
           className="w-full max-w-6xl"
           style={{ perspective: "1500px" }}
@@ -135,7 +174,7 @@ const HeroComponent = () => {
           </div>
         </div>
       </div>
-    </section>
+    </Container>
   );
 };
 

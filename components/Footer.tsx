@@ -241,10 +241,10 @@ const Footer = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-8 text-center"
+            className="mt-0 text-left"
           >
-            <Paragraph className="text-xs text-neutral-600">
-              Built with ❤️ for developers, by developers
+            <Paragraph className="text-xs text-neutral-200">
+              Built by <Link href="https://www.indrabuildswebsites.com/" className="font-semibold">Indranil</Link> and <Link href="https://www.indrabuildswebsites.com/" className="font-semibold">Aditya</Link>  for developers
             </Paragraph>
           </motion.div>
 

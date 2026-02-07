@@ -203,7 +203,7 @@ export interface IUser extends Document {
   github_username: string;
   
   // Profile Information
-  full_name?: string | null;
+  full_name: string | null;
   phone: string | null;
   location: string | null;
   portfolio_url: string | null;
