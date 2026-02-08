@@ -121,19 +121,21 @@ const HeroComponent = () => {
     <Container className="relative w-full min-h-dvh flex flex-col px-6 md:px-12 lg:px-16 overflow-hidden bg-stone-50 border-l border-r border-stone-200">
       {/* Top section - Text content */}
       <div className="w-full max-w-5xl mx-auto text-center mb-8 flex-shrink-0 ">
-        <h1 className="text-neutral-800 leading-tight tracking-tight text-balance text-4xl md:text-5xl lg:text-7xl font-light mb-8 pt-36">
-          Create Tailored <span className="text-stone-800 font-normal">Resume</span> Fast <br />
-          <span className="text-stone-800 font-sans text-3xl">AI creates the copy. You add the polish.</span>
+        <h1 className="text-neutral-800 leading-tight tracking-tight text-balance text-5xl md:text-5xl lg:text-7xl font-light mb-1 pt-36">
+          Create Tailored <span className="text-stone-800 font-bold">Resume</span> Fast
         </h1>
+        <div className="mb-12">
+          <h2 className="text-stone-800 font-sans text-xl md:text-2xl lg:text-3xl">AI creates the copy. You add the polish.</h2>
+        </div>
 
         {/* <p className="text-stone-600 text-pretty text-lg md:text-xl font-medium mb-8 max-w-2xl mx-auto">
           You don{"'"}t spend hours crafting resumes to apply for jobs, bootcamps, or internships. Why should we?
         </p> */}
 
         <div className="flex flex-row flex-wrap gap-4 justify-center">
-          <span className="inline-block px-5 py-2.5 bg-stone-100 rounded-full text-sm text-stone-600 font-medium border border-stone-200">
+          <div className="inline-block px-5 py-2.5 bg-stone-100 rounded-full text-sm text-stone-600 font-medium border border-stone-200">
             For CS Students & Developers
-          </span>
+          </div>
 
           {/* <button className="px-6 py-2.5 bg-stone-900 text-stone-50 rounded-full hover:bg-stone-800 transition-colors text-base font-medium">
             Start Building Your Resume

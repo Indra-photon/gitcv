@@ -52,10 +52,10 @@ const faqs: FAQ[] = [
     question: 'What if I don\'t have many GitHub projects?',
     answer: 'You need at least 2-3 projects to generate a meaningful resume. If you\'re just starting, we recommend building a few showcase projects first. Check our blog for project ideas that impress recruiters.',
   },
-  {
-    question: 'Do you offer refunds?',
-    answer: 'Yes! We offer a 7-day money-back guarantee for all paid plans. If you\'re not satisfied with Premium, contact support within 7 days for a full refund.',
-  },
+  // {
+  //   question: 'Do you offer refunds?',
+  //   answer: 'Yes! We offer a 7-day money-back guarantee for all paid plans. If you\'re not satisfied with Premium, contact support within 7 days for a full refund.',
+  // },
   {
     question: 'Can I cancel my subscription anytime?',
     answer: 'Absolutely. You can cancel your Premium subscription anytime from your profile settings. You\'ll retain access until the end of your billing period, and your resumes will remain accessible in read-only mode.',

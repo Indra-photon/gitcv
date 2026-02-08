@@ -159,7 +159,7 @@ const StepCard = ({ stepNumber, title, description, icon }: StepCardProps) => {
 
       {/* 2. The Main Card with the specific Clip-Path Notch */}
       <div 
-        className="relative mt-6 w-full min-h-[450px] bg-linear-to-b from-neutral-200 via-neutral-300 to-neutral-400 rounded-[3rem] p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all hover:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]"
+        className="relative mt-6 w-full min-h-[450px] bg-linear-to-b from-neutral-200 via-neutral-300 to-neutral-400 rounded-[3rem] p-12 "
         style={{
           // Depth reduced to 50, Length extended, and added a 20px radius to the left corner
           clipPath: `path("M 0,70 L 0,400 A 50,50 0 0 0 50,450 L 300,450 A 50,50 0 0 0 350,400 L 350,50 A 50,50 0 0 0 300,0 L 160,0 A 30,30 0 0 0 130,30 L 130,30 A 20,20 0 0 1 110,50 L 20,50 A 20,20 0 0 0 0,70 Z")`,
@@ -167,9 +167,9 @@ const StepCard = ({ stepNumber, title, description, icon }: StepCardProps) => {
       >
         {/* Card Content */}
         <div className="flex flex-col items-center justify-center h-full text-center space-y-4 pt-10">
-          <h3 className={`${CalSans.className} text-5xl font-black text-black tracking-tight`}>
+          <Heading className={`${CalSans.className} font-black text-black tracking-tight`}>
             {title}
-          </h3>
+          </Heading>
           <p className="text-xl text-neutral-800 font-regular max-w-[220px] leading-tight">
             {description}
           </p>
@@ -205,7 +205,7 @@ const StepsSection = () => {
   ];
 
   return (
-      <Container className=" relative overflow-hidden border-l border-r border-stone-300">
+      <Container className=" relative overflow-hidden border-l border-r border-stone-300 pb-15">
 
         <div className=" w-full relative">
             {/* Dashed Grid */}
@@ -257,10 +257,10 @@ const StepsSection = () => {
             {/* Section Header */}
             <div className="text-center mb-16 relative overflow-hidden border-t border-b border-stone-600 py-8">
               <div className="absolute left-0 top-0 h-2 w-2 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none"></div>
-              <Heading className={`${CalSans.className} text-6xl font-black text-neutral-900 tracking-tight mb-2 text-balance`}>
+              <Heading className={`${CalSans.className} font-black text-neutral-900 tracking-tight mb-2 text-balance`}>
                 3 simple steps, you get hired.
               </Heading>
-              <Paragraph className="text-2xl text-neutral-600 font-medium max-w-3xl mx-auto text-pretty">
+              <Paragraph className=" text-neutral-600 font-medium max-w-3xl mx-auto text-pretty">
                 Follow these easy steps to create your professional resume from your GitHub repositories.
               </Paragraph>
             </div>

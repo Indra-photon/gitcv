@@ -24,7 +24,7 @@ export const SubHeading = <T extends React.ElementType = "h1">({
     <Tag
       className={twMerge(
         CalSans.className,
-        "text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold leading-tight text-white",
+        "text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold leading-tight text-white",
         className
       )}
     >

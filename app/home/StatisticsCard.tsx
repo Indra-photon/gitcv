@@ -30,7 +30,7 @@ function StatisticsCard() {
 
       {/* Content */}
       <div className="relative z-10 mb-4">
-        <div className="text-7xl font-bold text-white mb-2 tabular-nums">
+        <div className="text-4xl sm:text-7xl font-bold text-white mb-2 tabular-nums">
           We save your TIME.
         </div>
         <Paragraph className="text-gray-300 text-xl text-balance max-w-2xl">
