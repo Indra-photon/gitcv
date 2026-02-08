@@ -121,10 +121,10 @@ const HeroComponent = () => {
     <Container className="relative w-full min-h-dvh flex flex-col px-6 md:px-12 lg:px-16 overflow-hidden bg-stone-50 border-l border-r border-stone-200">
       {/* Top section - Text content */}
       <div className="w-full max-w-5xl mx-auto text-center mb-8 flex-shrink-0 ">
-        <Heading className="text-neutral-800 leading-tight tracking-tight text-balance text-4xl md:text-5xl lg:text-6xl font-light mb-8 pt-36">
-          Create Tailored <span className="text-stone-800 italic font-normal">Resume</span> Fast <br />
-          <span className="text-stone-800 font-sans">AI creates the copy. You add the polish.</span>
-        </Heading>
+        <h1 className="text-neutral-800 leading-tight tracking-tight text-balance text-4xl md:text-5xl lg:text-7xl font-light mb-8 pt-36">
+          Create Tailored <span className="text-stone-800 font-normal">Resume</span> Fast <br />
+          <span className="text-stone-800 font-sans text-3xl">AI creates the copy. You add the polish.</span>
+        </h1>
 
         {/* <p className="text-stone-600 text-pretty text-lg md:text-xl font-medium mb-8 max-w-2xl mx-auto">
           You don{"'"}t spend hours crafting resumes to apply for jobs, bootcamps, or internships. Why should we?
