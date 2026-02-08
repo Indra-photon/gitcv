@@ -11,7 +11,7 @@ import RoleTailoringCard from './RoleTailoringCard';
 
 const BentoSection = () => {
   return (
-    <Container className="w-full border-l border-r border-stone-300 py-24">
+    <Container className="w-full border-l border-r border-stone-300 pb-24">
       <div className="">
 
         <div className=" w-full relative">
@@ -64,10 +64,10 @@ const BentoSection = () => {
 
               {/* Section Header */}
               <div className="mb-16 text-center border-t border-b border-stone-600 relative overflow-hidden py-8">
-                <Heading className="text-6xl font-black text-neutral-900 tracking-tight mb-2 text-balance">
+                <Heading className="font-black text-neutral-900 tracking-tight mb-2 text-balance">
                   Why Developers Choose Us
                 </Heading>
-                <Paragraph className="text-2xl text-neutral-600 font-medium max-w-3xl mx-auto text-pretty">
+                <Paragraph className=" text-neutral-600 font-medium max-w-3xl mx-auto text-pretty">
                   From GitHub repos to professional resumes in minutes. No more manual formatting or generic descriptions.
                 </Paragraph>
               </div>
@@ -75,7 +75,7 @@ const BentoSection = () => {
 
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto px-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto px-2 sm:px-12">
           
           {/* Card 1 - GitHub Connect */}
           <GitHubConnectCard />
@@ -87,7 +87,7 @@ const BentoSection = () => {
           <AIGenerationCard />
 
           {/* Card 4 - Role Tailoring */}
-          <RoleTailoringCard />
+          {/* <RoleTailoringCard /> */}
 
           {/* Card 5 - Tech Stack Detection */}
           {/* <TechStackCard /> */}

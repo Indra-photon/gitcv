@@ -114,7 +114,7 @@ const AIGenerationCard = () => {
   }, [startAutoplay]);
 
   return (
-    <div className="bg-white rounded-3xl p-8 md:col-span-2 border-2 border-gray-200">
+    <div className="bg-white rounded-3xl p-8 md:col-span-3 border-2 border-gray-200">
       {/* Header */}
       <div className="mb-8">
         <SubHeading className="text-neutral-500 mb-3 text-balance">
