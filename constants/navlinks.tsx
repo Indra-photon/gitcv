@@ -18,14 +18,14 @@ export const navlinks = [
     icon: IconMessage2,
   },
   {
-    url: "/dashboard",
-    label: "Dashboard",
-    icon: IconMessage2,
-  },
-  {
     url: "/blog",
     label: "Blogs",
     icon: IconArticle,
+  },
+  {
+    url: "/dashboard",
+    label: "Create Resume",
+    icon: IconMessage2,
   },
   // {
   //   url: "/contact",

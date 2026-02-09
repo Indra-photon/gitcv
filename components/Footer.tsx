@@ -244,7 +244,7 @@ const Footer = () => {
             className="mt-0 text-left"
           >
             <Paragraph className="text-xs text-neutral-200">
-              Built by <Link href="https://www.indrabuildswebsites.com/" className="font-semibold">Indranil</Link> and <Link href="https://www.indrabuildswebsites.com/" className="font-semibold">Aditya</Link>  for developers
+              Built by <Link href="https://www.indrabuildswebsites.com/" className="font-semibold underline">Indranil</Link> and <Link href="https://adityaportfolio-two.vercel.app/" className="font-semibold underline">Aditya</Link>  for developers
             </Paragraph>
           </motion.div>
 

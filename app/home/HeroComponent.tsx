@@ -161,7 +161,7 @@ const HeroComponent = () => {
       </div>
 
       {/* Bottom section - Large Illustration */}
-      <div className="flex-1 w-full flex items-center justify-center min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
+      <div className="flex-1 w-full sm:flex items-center justify-center hidden  min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
         <div
           className="w-full max-w-6xl"
           style={{ perspective: "1500px" }}

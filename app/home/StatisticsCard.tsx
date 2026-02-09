@@ -1,5 +1,6 @@
 import React from 'react'
 import { Paragraph } from '@/components/Paragraph'
+import { Heading } from '@/components/Heading'
 
 function StatisticsCard() {
   return (
@@ -30,9 +31,9 @@ function StatisticsCard() {
 
       {/* Content */}
       <div className="relative z-10 mb-4">
-        <div className="text-4xl sm:text-7xl font-bold text-white mb-2 tabular-nums">
+        <Heading className="text-4xl sm:text-7xl font-bold text-white mb-2">
           We save your TIME.
-        </div>
+        </Heading>
         <Paragraph className="text-gray-300 text-xl text-balance max-w-2xl">
           Create tailored resumes for every role you apply to
         </Paragraph>
@@ -51,21 +52,21 @@ function StatisticsCard() {
                 }}
                 aria-hidden="true"
             />
-            <Paragraph className="text-neutral-200 text-lg mb-2">Manual Tailoring</Paragraph>
+            <Paragraph className="text-neutral-200 text-lg">Manual Tailoring</Paragraph>
             <Paragraph className="text-neutral-300 text-2xl font-bold tabular-nums">2-3 hrs<span className='text-xs pl-2'>/ each resume</span></Paragraph>
             </div>
-        
-        <div className="text-green-400 text-3xl rotate-90 md:rotate-0">→</div>
-        
-        <div className="flex-1 bg-green-500/10 rounded-2xl p-6 border border-green-500/30">
-          <Paragraph variant='muted' className="text-green-400 text-sm mb-2">With GitCVs</Paragraph>
+
+        <div className="text-neutral-100 text-3xl rotate-90 md:rotate-0">→</div>
+
+        <div className="flex-1 bg-neutral-900 rounded-2xl p-6 border border-neutral-100">
+          <Paragraph variant='muted' className="text-neutral-100 text-sm">With GitCVs</Paragraph>
           <Paragraph className="text-neutral-300 text-2xl font-bold tabular-nums">30 min<span className='text-xs pl-2'>/resume</span></Paragraph>
         </div>
       </div>
 
       {/* Supporting Message */}
       <div className="relative z-10 mt-8 max-w-xl">
-        <Paragraph className="text-gray-400 text-sm text-pretty">
+        <Paragraph className="text-gray-100 text-[12px] sm:text-sm text-pretty">
           Instantly generate customized resumes for every tech role—frontend, backend, full-stack, internships, and more. Save time and stand out with applications tailored in minutes.
         </Paragraph>
       </div>

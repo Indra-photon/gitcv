@@ -554,10 +554,10 @@ const PricingSection = ({
 
           {/* Section Header */}
           <div className="mb-16 text-center border-t border-b border-neutral-600 relative overflow-hidden py-8">
-            <Heading className={cn("text-neutral-900 tracking-tighter", CalSans.className)}>
+            <Heading className={cn("text-neutral-900", CalSans.className)}>
               Simple, Transparent Pricing
             </Heading>
-            <Paragraph className={cn("max-w-3xl mx-auto text-neutral-600 tracking-tighter", CalSans.className)}>
+            <Paragraph className={cn("max-w-3xl mx-auto text-neutral-600", CalSans.className)}>
               Start free and upgrade when you need unlimited resumes and advanced AI features.
             </Paragraph>
           </div>
@@ -579,18 +579,18 @@ const PricingSection = ({
         </div>
 
         {/* Comparison Table */}
-        <div className="px-4 sm:px-6 lg:px-12">
+        {/* <div className="px-4 sm:px-6 lg:px-12">
           <div className="mt-20 text-center">
-            <SubHeading className={cn("text-neutral-900 tracking-tighter", CalSans.className)}>
+            <SubHeading className={cn("text-neutral-900", CalSans.className)}>
               Compare Plans
             </SubHeading>
-            <Paragraph className={cn("max-w-2xl mx-auto text-neutral-600 tracking-tighter", CalSans.className)}>
+            <Paragraph className={cn("max-w-2xl mx-auto text-neutral-600", CalSans.className)}>
               See exactly what you get with each plan at a glance.
             </Paragraph>
           </div>
           
           <ComparisonTable />
-        </div>
+        </div> */}
 
         {/* FAQ or Additional Info */}
         {/* <motion.div

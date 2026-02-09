@@ -9,6 +9,7 @@ import { useUserStore } from "@/lib/store"
 import { useClerk } from "@clerk/nextjs"
 import { LogOut, User as UserIcon } from "lucide-react"
 import Image from "next/image"
+import { Paragraph } from "./Paragraph"
 
 
 interface NavItem {
@@ -225,7 +226,7 @@ export function NavBar({
               <div className="flex flex-col h-full">
                 {/* Sidebar header */}
                 <div className="flex items-center justify-between p-6 border-b border-border">
-                  <span className="text-xl font-bold text-foreground">Menu</span>
+                  <Paragraph className="text-xl font-bold text-foreground">Welcome to GitCV</Paragraph>
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="p-2 text-foreground"
@@ -236,7 +237,7 @@ export function NavBar({
                 </div>
 
                 {/* Nav items */}
-                <nav className="flex-1 overflow-y-auto p-6">
+                <nav className="flex-1 overflow-y-auto pr-6 pl-2">
                   <ul className="flex flex-col gap-2">
                     {items.map((item, index) => (
                       <motion.li
@@ -258,10 +259,48 @@ export function NavBar({
                       </motion.li>
                     ))}
                   </ul>
+                  <div className="mt-6 pt-6 border-t border-border">
+                    {user !== null ? (
+                      <div className="space-y-2">
+                        <Link
+                          href="/profile"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex items-center gap-3 px-4 py-3 text-foreground/70 hover:text-foreground hover:bg-muted rounded-lg transition-all duration-200"
+                        >
+                          {/* <Image
+                            src={user.imageUrl}
+                            alt={user.fullName || "User"}
+                            width={32}
+                            height={32}
+                            className="rounded-full"
+                          /> */}
+                          <span className="text-base font-medium">Profile</span>
+                        </Link>
+                        <button
+                          onClick={() => {
+                            signOut()
+                            setIsMobileMenuOpen(false)
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-foreground/70 hover:text-foreground hover:bg-muted rounded-lg transition-all duration-200 text-base font-medium"
+                        >
+                          <LogOut size={20} />
+                          Sign Out
+                        </button>
+                      </div>
+                    ) : (
+                      <Link
+                        href="/sign-in"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block px-4 py-3 text-center bg-muted text-foreground rounded-lg text-base font-medium hover:bg-muted/80 transition-colors"
+                      >
+                        Sign In
+                      </Link>
+                    )}
+                  </div>
                 </nav>
 
                 {/* CTA button at bottom */}
-                <div className="p-6 border-t border-border">
+                {/* <div className="p-6 border-t border-border">
                   <motion.button
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -272,7 +311,7 @@ export function NavBar({
                   >
                     Get Started
                   </motion.button>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           </>
