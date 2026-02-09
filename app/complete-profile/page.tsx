@@ -21,16 +21,37 @@ export default function CompleteProfilePage() {
   const handleSubmit = async (formData: FormData) => {
     setIsSubmitting(true)
     setError('')
-    
-    const res = await completeProfile(formData)
-    
-    if (res?.message) {
-      await user?.reload()
-      router.push('/dashboard')
-    }
-    
-    if (res?.error) {
-      setError(res.error)
+
+    try {
+      const res = await completeProfile(formData)
+
+      if (res?.message) {
+        // Reload user to get updated metadata
+        try {
+          await user?.reload()
+        } catch (reloadError) {
+          console.warn('User reload failed, continuing with redirect:', reloadError)
+        }
+
+        // Use replace to prevent back navigation to this page
+        // Add a small delay to ensure state is updated
+        router.replace('/dashboard')
+
+        // Fallback: if router.replace doesn't work, force redirect after a delay
+        setTimeout(() => {
+          window.location.href = '/dashboard'
+        }, 2000)
+
+        return // Exit early on success
+      }
+
+      if (res?.error) {
+        setError(res.error)
+        setIsSubmitting(false)
+      }
+    } catch (err) {
+      console.error('Form submission error:', err)
+      setError('Something went wrong. Please try again.')
       setIsSubmitting(false)
     }
   }
@@ -49,7 +70,7 @@ export default function CompleteProfilePage() {
 
         <CardContent>
           <form action={handleSubmit} className="space-y-8">
-            
+
             {/* Personal Information */}
             <div className="space-y-4">
               <Paragraph className="text-lg font-medium text-neutral-900">
@@ -69,7 +90,7 @@ export default function CompleteProfilePage() {
                   className="bg-white border-neutral-300 text-neutral-900 focus:border-neutral-500"
                 />
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-neutral-700">
@@ -162,7 +183,7 @@ export default function CompleteProfilePage() {
               <Paragraph className="text-lg font-medium text-neutral-900">
                 Education (Optional)
               </Paragraph>
-              
+
               <div className="space-y-4 p-4 bg-neutral-50 rounded-lg border border-neutral-200">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -241,7 +262,7 @@ export default function CompleteProfilePage() {
               <Paragraph className="text-lg font-medium text-neutral-900">
                 Work Experience (Optional)
               </Paragraph>
-              
+
               <div className="space-y-4 p-4 bg-neutral-50 rounded-lg border border-neutral-200">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -320,7 +341,7 @@ export default function CompleteProfilePage() {
               <Paragraph className="text-lg font-medium text-neutral-900">
                 Additional Information (Optional)
               </Paragraph>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="certifications" className="text-neutral-700">
                   Certifications

@@ -29,6 +29,7 @@ export const SUBSCRIPTION_TIERS = {
 // Subscription Status
 export const SUBSCRIPTION_STATUS = {
   ACTIVE: 'active',
+  PAUSED: 'paused',
   EXPIRED: 'expired',
   CANCELLED: 'cancelled'
 } as const;

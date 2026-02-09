@@ -6,17 +6,18 @@ import { useEffect, useRef } from 'react'
 
 export function UserSync() {
   const { isSignedIn, user, isLoaded } = useUser()
-  const { 
+  const {
     clerkUser,
-    setClerkUser, 
-    setUserProfile, 
+    setClerkUser,
+    userProfile,
+    setUserProfile,
     setSubscription,
     clearUserData,
     setProfileLoading
   } = useUserStore()
 
-  // Prevent multiple fetches
-  const hasFetched = useRef(false)
+  // Track last fetched user id to refetch when user changes
+  const lastFetchedUserId = useRef<string | null>(null)
 
   // Sync Clerk user
   useEffect(() => {
@@ -31,24 +32,48 @@ export function UserSync() {
         })
       } else {
         clearUserData()
+        lastFetchedUserId.current = null
       }
     }
   }, [isSignedIn, user, isLoaded, setClerkUser, clearUserData])
 
-  // Fetch full profile and subscription (only once)
+  // Fetch full profile and subscription
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!isSignedIn || !user || hasFetched.current) return
+      if (!isSignedIn || !user) return
 
-      hasFetched.current = true
+      // Check if user's profileComplete status just changed or if we haven't fetched for this user
+      const profileComplete = user.publicMetadata?.profileComplete as boolean | undefined
+      const needsFetch = lastFetchedUserId.current !== user.id ||
+        (profileComplete && !userProfile)
+
+      if (!needsFetch) return
+
+      lastFetchedUserId.current = user.id
       setProfileLoading(true)
 
       try {
-        // Fetch user profile
-        const profileRes = await fetch('/api/user/profile')
-        if (profileRes.ok) {
-          const profileData = await profileRes.json()
-          setUserProfile(profileData.data)
+        // Fetch user profile with retry for recently completed profiles
+        let profileData = null
+        let retries = 0
+        const maxRetries = 3
+
+        while (retries < maxRetries) {
+          const profileRes = await fetch('/api/user/profile')
+          if (profileRes.ok) {
+            profileData = await profileRes.json()
+            if (profileData.data) {
+              setUserProfile(profileData.data)
+              break
+            }
+          }
+          // If profile not found but profileComplete is true, wait and retry
+          if (profileComplete && retries < maxRetries - 1) {
+            await new Promise(resolve => setTimeout(resolve, 500))
+            retries++
+          } else {
+            break
+          }
         }
 
         // Fetch subscription
@@ -65,12 +90,12 @@ export function UserSync() {
     }
 
     fetchUserData()
-  }, [isSignedIn, user, setUserProfile, setSubscription, setProfileLoading])
+  }, [isSignedIn, user, user?.publicMetadata?.profileComplete, userProfile, setUserProfile, setSubscription, setProfileLoading])
 
-  // Reset fetch flag on logout
+  // Reset on logout
   useEffect(() => {
     if (!isSignedIn) {
-      hasFetched.current = false
+      lastFetchedUserId.current = null
     }
   }, [isSignedIn])
 
