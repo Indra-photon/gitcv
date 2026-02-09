@@ -24,20 +24,23 @@ const TEMPLATES = [
     label: 'Classic ATS',
     description: 'Traditional single-column layout. Clean and professional.',
     free: true,
+    comingSoon: false,
     layout: 'single-column'
   },
   {
     value: TEMPLATE_TYPES.HARVARD,
     label: 'Harvard ATS',
     description: 'Ultra ATS-optimized. Maximum compatibility with all hiring systems.',
-    free: true,
+    free: false,
+    comingSoon: false,
     layout: 'harvard-ats'
   },
   {
     value: TEMPLATE_TYPES.MODERN,
     label: 'Modern Professional',
     description: 'Two-column layout with sidebar. Contemporary and compact.',
-    free: true,
+    free: false,
+    comingSoon: true,
     layout: 'two-column'
   },
   {
@@ -45,6 +48,7 @@ const TEMPLATES = [
     label: 'Minimal Clean',
     description: 'Spacious single-column with maximum readability.',
     free: false,
+    comingSoon: true,
     layout: 'single-column-spacious'
   },
   {
@@ -52,6 +56,7 @@ const TEMPLATES = [
     label: 'Creative Designer',
     description: 'Bold two-column with accent colors for creative roles.',
     free: false,
+    comingSoon: true,
     layout: 'two-column-accent'
   },
   {
@@ -59,6 +64,7 @@ const TEMPLATES = [
     label: 'Academic Research',
     description: 'Traditional format optimized for academic positions.',
     free: false,
+    comingSoon: true,
     layout: 'single-column-traditional'
   },
   {
@@ -66,6 +72,7 @@ const TEMPLATES = [
     label: 'Executive Leadership',
     description: 'Premium two-column design for senior roles.',
     free: false,
+    comingSoon: true,
     layout: 'two-column-premium'
   }
 ]
@@ -355,6 +362,11 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
   const handleTemplateSelect = (template: TemplateType) => {
     const templateConfig = TEMPLATES.find((t) => t.value === template)
 
+    // Block Coming Soon templates
+    if (templateConfig?.comingSoon) {
+      return
+    }
+
     if (!templateConfig?.free && !isPaid) {
       setShowPaywall(true)
       return
@@ -404,7 +416,7 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
         <p className="text-sm text-neutral-600 text-pretty">
           {isPaid
             ? 'Select from 7 professional templates'
-            : 'Select from 3 free templates or upgrade for 4 more premium options'}
+            : 'Select from 1 free template or upgrade for 6 more premium options'}
         </p>
       </div>
 
@@ -412,7 +424,7 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
       <RadioGroup value={selectedTemplate} onValueChange={handleTemplateSelect}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {TEMPLATES.map((template) => {
-            const isLocked = !template.free && !isPaid
+            const isLocked = (!template.free && !isPaid) || template.comingSoon
             const isSelected = selectedTemplate === template.value
 
             return (
@@ -445,9 +457,19 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
                     >
                       {template.label}
                     </h3>
+                    {template.free && (
+                      <span className="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded">
+                        Free
+                      </span>
+                    )}
                     {!template.free && (
                       <span className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-900 rounded">
                         Pro
+                      </span>
+                    )}
+                    {template.comingSoon && (
+                      <span className="px-2 py-0.5 text-xs font-medium bg-neutral-200 text-neutral-600 rounded">
+                        Coming Soon
                       </span>
                     )}
                   </div>
@@ -477,7 +499,7 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
           <DialogHeader>
             <DialogTitle>Upgrade to Premium</DialogTitle>
             <DialogDescription>
-              Unlock 4 additional professional templates and premium features
+              Unlock 6 additional professional templates and premium features
             </DialogDescription>
           </DialogHeader>
 
@@ -487,7 +509,7 @@ export default function StepFour({ resumeId, subscription, onBack }: StepFourPro
                 <div className="size-5 rounded-full bg-green-100 flex items-center justify-center">
                   <span className="text-green-600 text-xs">✓</span>
                 </div>
-                <span className="text-sm">6 professional templates</span>
+                <span className="text-sm">7 professional templates</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="size-5 rounded-full bg-green-100 flex items-center justify-center">

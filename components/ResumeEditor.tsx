@@ -42,7 +42,10 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
 
 
   // Get user data from Zustand store
-  const { userProfile } = useUserStore()
+  const { userProfile, subscription } = useUserStore()
+
+  // Check if user has Pro subscription
+  const isPaid = subscription?.tier !== 'free'
 
   const [resume, setResume] = useState(initialResume)
   const [isSaving, setIsSaving] = useState(false)
@@ -149,6 +152,14 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
   }
 
   const handleTemplateChange = (newTemplate: string) => {
+    // Check if trying to select a Pro template without Pro subscription
+    const proTemplates = [TEMPLATE_TYPES.HARVARD]
+    if (proTemplates.includes(newTemplate as any) && !isPaid) {
+      toast.error('Upgrade to Pro to access this template')
+      router.push('/pricing')
+      return
+    }
+
     setResume({ ...resume, template: newTemplate })
     setHasUnsavedChanges(true)
   }
@@ -214,13 +225,48 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
                   <SelectValue placeholder="Select template" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={TEMPLATE_TYPES.DEFAULT}>Classic ATS</SelectItem>
-                  <SelectItem value={TEMPLATE_TYPES.HARVARD}>Harvard ATS</SelectItem>
-                  <SelectItem value={TEMPLATE_TYPES.MODERN}>Modern Professional</SelectItem>
-                  <SelectItem value={TEMPLATE_TYPES.MINIMAL}>Minimal Clean</SelectItem>
-                  <SelectItem value={TEMPLATE_TYPES.CREATIVE}>Creative Designer</SelectItem>
-                  <SelectItem value={TEMPLATE_TYPES.ACADEMIC}>Academic Research</SelectItem>
-                  <SelectItem value={TEMPLATE_TYPES.EXECUTIVE}>Executive Leadership</SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.DEFAULT}>
+                    <span className="flex items-center gap-2">
+                      Classic ATS
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-green-100 text-green-800 rounded">Free</span>
+                    </span>
+                  </SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.HARVARD} disabled={!isPaid}>
+                    <span className="flex items-center gap-2">
+                      Harvard ATS
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-amber-100 text-amber-900 rounded">Pro</span>
+                    </span>
+                  </SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.MODERN} disabled>
+                    <span className="flex items-center gap-2">
+                      Modern Professional
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-neutral-200 text-neutral-600 rounded">Coming Soon</span>
+                    </span>
+                  </SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.MINIMAL} disabled>
+                    <span className="flex items-center gap-2">
+                      Minimal Clean
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-neutral-200 text-neutral-600 rounded">Coming Soon</span>
+                    </span>
+                  </SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.CREATIVE} disabled>
+                    <span className="flex items-center gap-2">
+                      Creative Designer
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-neutral-200 text-neutral-600 rounded">Coming Soon</span>
+                    </span>
+                  </SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.ACADEMIC} disabled>
+                    <span className="flex items-center gap-2">
+                      Academic Research
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-neutral-200 text-neutral-600 rounded">Coming Soon</span>
+                    </span>
+                  </SelectItem>
+                  <SelectItem value={TEMPLATE_TYPES.EXECUTIVE} disabled>
+                    <span className="flex items-center gap-2">
+                      Executive Leadership
+                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-neutral-200 text-neutral-600 rounded">Coming Soon</span>
+                    </span>
+                  </SelectItem>
                 </SelectContent>
               </Select>
 
