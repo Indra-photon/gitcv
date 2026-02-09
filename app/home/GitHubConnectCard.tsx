@@ -79,7 +79,7 @@ const GitHubConnectCard = () => {
           </svg>
         </div>
         
-        <Heading className="text-2xl text-neutral-500 mb-3 text-balance">
+        <Heading className="text-2xl text-neutral-500 text-balance">
           One-Click GitHub Sync
         </Heading>
         

@@ -295,7 +295,7 @@ export function ResumeIllustration() {
       <div 
       className="absolute top-0 left-0 h-[500px] w-[800px] rounded-[3rem] overflow-hidden border-[3px] border-black shadow-2xl transition-transform opacity-60"
       style={{
-        transform: 'rotateX(50deg) rotateZ(45deg) translateX(300px) translateY(-50px) translateZ(100px)',
+        transform: 'rotateX(50deg) rotateZ(45deg) translateX(100px) translateY(-450px)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
       }}
@@ -328,7 +328,7 @@ export function ResumeIllustration() {
       <div 
       className="absolute top-0 left-0 h-[400px] w-[700px] rounded-[3rem] overflow-hidden border-[3px] border-black shadow-2xl transition-transform"
       style={{
-        transform: 'rotateX(50deg) rotateZ(45deg) translateX(300px) translateY(200px)',
+        transform: 'rotateX(50deg) rotateZ(45deg) translateX(100px) translateY(-150px)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
       }}
@@ -346,33 +346,3 @@ export function ResumeIllustration() {
 }
 
 export default ResumeIllustration
-
-// import React from 'react'
-// import Image from 'next/image'
-
-// export function ResumeIllustration() {
-//   return (
-//     <div className="relative w-full max-w-6xl h-[600px] mx-auto overflow-hidden">
-//       {/* 3 Column Layout with 3D Rotation */}
-//       <div className="flex flex-row gap-5 rotate-x-50 rotate-z-45">
-        
-//         {/* Column 1 */}
-//         <div className="flex flex-col space-y-10">
-//           {[...new Array(1)].fill(0).map((_, index) => (
-//             <div key={index} className="relative w-[600px] h-[400px] rounded-2xl">
-//               <Image
-//                 src="/hero1.png"
-//                 alt="GitHub Profile"
-//                 fill
-//                 className="object-cover"
-//               />
-//             </div>
-//           ))}
-//         </div>
-
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default ResumeIllustration
