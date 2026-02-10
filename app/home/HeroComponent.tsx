@@ -102,6 +102,8 @@ import { ArrowRight, Loader2 } from 'lucide-react';  // ADD THIS
 import { useState } from 'react';  // ADD THIS
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
+import Border2 from "@/components/pixel-perfect/border2";
+import Border1 from "@/components/pixel-perfect/border1";
 
 const HeroComponent = () => {
   const { isSignedIn, isLoaded } = useUser()
@@ -121,8 +123,8 @@ const HeroComponent = () => {
     <Container className="relative w-full min-h-dvh flex flex-col px-6 md:px-12 lg:px-16 overflow-hidden bg-stone-50 border-l border-r border-stone-200">
       {/* Top section - Text content */}
       <div className="w-full max-w-5xl mx-auto text-center mb-8 flex-shrink-0 ">
-        <h1 className="text-neutral-800 leading-tight tracking-tight text-balance text-5xl md:text-5xl lg:text-7xl font-light mb-1 pt-36">
-          Create Tailored <span className="text-stone-800 font-bold">Resume</span> Fast
+        <h1 className="text-neutral-800 leading-tight tracking-tight text-balance text-5xl md:text-5xl lg:text-7xl font-light mb-1 pt-24">
+          Create Tailored <span className="text-stone-800 font-bold"><Border1>Resume</Border1></span> Fast
         </h1>
         <div className="mb-12">
           <h2 className="text-stone-800 font-sans text-xl md:text-2xl lg:text-3xl">AI creates the copy. You add the polish.</h2>
@@ -164,13 +166,13 @@ const HeroComponent = () => {
       <div className="flex-1 w-full sm:flex items-center justify-center hidden  min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
         <div
           className="w-full max-w-6xl"
-          style={{ perspective: "1500px" }}
+          // style={{ perspective: "1500px" }}
         >
           <div
-            style={{
-              transform: "rotateX(6deg) rotateY(-4deg)",
-              transformStyle: "preserve-3d",
-            }}
+            // style={{
+            //   transform: "rotateX(6deg) rotateY(-4deg)",
+            //   transformStyle: "preserve-3d",
+            // }}
           >
             <ResumeIllustration />
           </div>

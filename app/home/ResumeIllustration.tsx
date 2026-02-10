@@ -290,12 +290,13 @@ export function ResumeIllustration() {
   return (
     <div 
       className="relative w-[500px] h-[650px]" 
-      style={{ transformStyle: 'preserve-3d' }}
+      // style={{ transformStyle: 'preserve-3d' }}
     >
       <div 
-      className="absolute top-0 left-0 h-[500px] w-[800px] rounded-[3rem] overflow-hidden border-[3px] border-black shadow-2xl transition-transform opacity-60"
+      className="absolute top-0 left-0 h-[500px] w-[900px] rounded-[3rem] overflow-hidden border-[3px] border-black shadow-2xl transition-transform opacity-60"
       style={{
-        transform: 'rotateX(50deg) rotateZ(45deg) translateX(100px) translateY(-450px)',
+        // transform: 'rotateX(50deg) rotateZ(45deg) translateX(100px) translateY(-450px)',
+        transform: 'rotate(-10deg) translateX(13%) translateY(10%)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
       }}
@@ -326,9 +327,10 @@ export function ResumeIllustration() {
       </div> */}
 
       <div 
-      className="absolute top-0 left-0 h-[400px] w-[700px] rounded-[3rem] overflow-hidden border-[3px] border-black shadow-2xl transition-transform"
+      className="absolute top-0 left-0 h-[400px] w-[1000px] rounded-[3rem] overflow-hidden border-[3px] border-black shadow-2xl transition-transform"
       style={{
-        transform: 'rotateX(50deg) rotateZ(45deg) translateX(100px) translateY(-150px)',
+        // transform: 'rotateX(50deg) rotateZ(45deg) translateX(100px) translateY(-150px)',
+        transform: 'rotate(-10deg) translateX(8%) translateY(70%)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
       }}
