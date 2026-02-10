@@ -120,11 +120,11 @@ const HeroComponent = () => {
     }
   }
   return (
-    <Container className="relative w-full min-h-dvh flex flex-col px-6 md:px-12 lg:px-16 overflow-hidden bg-stone-50 border-l border-r border-stone-200">
+    <Container className="relative w-full min-h-dvh flex flex-col px-6 md:px-12 lg:px-16 overflow-hidden bg-stone-50 border-l border-r border-stone-200 shadow-xl">
       {/* Top section - Text content */}
       <div className="w-full max-w-5xl mx-auto text-center mb-8 flex-shrink-0 ">
         <h1 className="text-neutral-800 leading-tight tracking-tight text-balance text-5xl md:text-5xl lg:text-7xl font-light mb-1 pt-24">
-          Create Tailored <span className="text-stone-800 font-bold"><Border1>Resume</Border1></span> Fast
+          Create Tailored <span className="text-stone-800 font-bold animate-text-blur"><Border1>Resume</Border1></span> Fast
         </h1>
         <div className="mb-12">
           <h2 className="text-stone-800 font-sans text-xl md:text-2xl lg:text-3xl">AI creates the copy. You add the polish.</h2>

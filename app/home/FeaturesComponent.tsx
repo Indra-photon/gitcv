@@ -74,11 +74,11 @@ const GridCell = ({ title, description, icon, accent = false, featured = false, 
 
 const DifferenceSection = () => {
   return (
-    <Container className="relative overflow-hidden border-l border-r border-stone-300 pb-15">
+    <Container className="relative overflow-hidden border-l border-r border-stone-300 pb-15 shadow-xl">
       <div className="w-full relative">
 
         {/* Section Header */}
-        <div className="text-center mb-16 relative overflow-hidden border-t border-b border-stone-600 pt-8 pb-8">
+        <div className="text-center mb-16 relative overflow-hidden border-t border-b border-stone-600  shadow-xl pt-8 pb-8">
             {/* Dashed Grid Background */}
             <div
             className="absolute inset-0 z-0"

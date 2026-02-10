@@ -501,7 +501,7 @@ const PricingSection = ({
 }
 
   return (
-    <Container className="w-full border-l border-r border-stone-300 py-24">
+    <Container className="w-full border-l border-r border-stone-300 shadow-xl py-24">
       <div className="max-w-7xl mx-auto">
         
         <div className="w-full relative">
@@ -553,7 +553,7 @@ const PricingSection = ({
           />
 
           {/* Section Header */}
-          <div className="mb-16 text-center border-t border-b border-neutral-600 relative overflow-hidden py-8">
+          <div className="mb-16 text-center border-t border-b border-neutral-600 shadow-xl relative overflow-hidden py-8">
             <Heading className={cn("text-neutral-900", CalSans.className)}>
               Simple, Transparent Pricing
             </Heading>
