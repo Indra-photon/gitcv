@@ -86,7 +86,7 @@ const StepsSection = () => {
   ];
 
   return (
-      <Container className=" relative overflow-hidden border-l border-r border-stone-300 pb-15">
+      <Container className=" relative overflow-hidden border-l border-r border-stone-300 shadow-xl pb-15">
 
         <div className=" w-full relative">
             {/* Dashed Grid */}
@@ -136,7 +136,7 @@ const StepsSection = () => {
               }}
             />
             {/* Section Header */}
-            <div className="text-center mb-16 relative overflow-hidden border-t border-b border-stone-600 py-8">
+            <div className="text-center mb-16 relative overflow-hidden border-t border-b border-stone-600 shadow-xl py-8">
               <div className="absolute left-0 top-0 h-2 w-2 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none"></div>
               <Heading className={`${CalSans.className} font-black text-neutral-900 tracking-tight mb-2 text-balance`}>
                 3 simple steps, you get hired.

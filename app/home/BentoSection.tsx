@@ -11,10 +11,10 @@ import RoleTailoringCard from './RoleTailoringCard';
 
 const BentoSection = () => {
   return (
-    <Container className="w-full border-l border-r border-stone-300 pb-24">
+    <Container className="w-full border-l border-r border-stone-300 pb-24 shadow-xl">
       <div className="">
 
-        <div className=" w-full relative">
+        <div className=" w-full relative shadow-xl">
             {/* Dashed Grid */}
             <div
               className="absolute inset-0 z-0"

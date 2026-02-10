@@ -125,6 +125,7 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+     --ease-in-expo: cubic-bezier(.95, .05, .795, .035);
   }
 }
 
@@ -202,6 +203,56 @@ body {
                 radial-gradient(ellipse at bottom, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
   }
 }
+
+.animate-hero-top-image {
+  animation: hero-top-image-float 1.2s ease-out forwards;
+}
+
+.animate-hero-bottom-image {
+  animation: hero-bottom-image-float 1.2s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.animate-text-blur {
+  animation: text-blur 2s ease-out forwards;
+}
+
+@keyframes text-blur {
+  0% {
+    filter: blur(4px);
+  }
+  100% {
+    filter: blur(0px);
+  }
+}
+
+@keyframes hero-top-image-float {
+  0% {
+    transform: rotate(-10deg) translateX(13%) translateY(10%) translateY(-100px);
+    filter: blur(2px);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(-10deg) translateX(13%) translateY(10%) translateY(0px);
+    filter: blur(0px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes hero-bottom-image-float {
+  0% {
+      transform: rotate(-10deg) translateX(8%) translateY(70%) translateY(-100px);
+      filter: blur(2px);
+      opacity: 0;
+    }
+  100% {
+    transform: rotate(-10deg) translateX(8%) translateY(70%) translateY(0px);
+    filter: blur(0px);
+    opacity: 0.99;
+  }
+}
+
+
 
 /* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
