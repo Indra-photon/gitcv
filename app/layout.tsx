@@ -115,7 +115,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "GitHub Resume Builder | AI-Powered Resumes from Your Code",
     description: "Transform GitHub repos into professional, ATS-friendly resumes in minutes. Built for CS students, bootcamp grads, and junior developers.",
-    images: ["/twitter-image.png"], // 1200x675px recommended
+    images: ["/gitcv-1.png"], // 1200x675px recommended
     creator: "@Nil_phy_dreamer", // Update with your Twitter handle
     site: "@Nil_phy_dreamer"
   },
