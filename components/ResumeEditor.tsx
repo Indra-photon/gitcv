@@ -134,8 +134,12 @@ export default function ResumeEditor({ initialResume }: ResumeEditorProps) {
       link.download = `${resume.title || 'resume'}.pdf`
       document.body.appendChild(link)
       link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
+
+      // Delay cleanup so the browser has time to read the blob before revoking
+      setTimeout(() => {
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      }, 1000)
 
       setIsExporting(false)
       toast.success('PDF downloaded successfully!')
