@@ -388,7 +388,7 @@ const StaticPricingCard = ({
 
 const ComparisonTable = () => {
   const features = [
-    { name: 'Resume Slots', free: '1', premium: 'Unlimited' },
+    { name: 'Resume Slots', free: '3', premium: 'Unlimited' },
     { name: 'AI Quality', free: 'Standard (80-85%)', premium: 'Advanced (100%)' },
     { name: 'Templates', free: '1 ATS Template', premium: '5 Premium Templates' },
     // { name: 'PDF Storage', free: '15 Days', premium: 'Permanent' },
@@ -467,7 +467,7 @@ const PricingSection = ({
   EXECUTIVE_ESCAPE_MAIL, 
   prices 
 }: PricingSectionProps) => {
-  const [billingCycle, setBillingCycle] = useState<BillingCycle>('annual');
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
 
   const freeCard = PRICING_CARDS.find(c => c.tier === SUBSCRIPTION_TIERS.FREE);
   const lifetimeCard = PRICING_CARDS.find(c => c.tier === SUBSCRIPTION_TIERS.LIFETIME);
@@ -501,7 +501,7 @@ const PricingSection = ({
 }
 
   return (
-    <Container className="w-full border-l border-r border-stone-300 shadow-xl py-24">
+    <Container className="w-full border-l border-r border-stone-300 py-24">
       <div className="max-w-7xl mx-auto">
         
         <div className="w-full relative">
@@ -553,11 +553,11 @@ const PricingSection = ({
           />
 
           {/* Section Header */}
-          <div className="mb-16 text-center border-t border-b border-neutral-600 shadow-xl relative overflow-hidden py-8">
-            <Heading className={cn("text-neutral-900", CalSans.className)}>
+          <div className="mb-16 text-center border-t border-b border-neutral-600 relative overflow-hidden py-8">
+            <Heading className={cn("text-neutral-900 tracking-tighter", CalSans.className)}>
               Simple, Transparent Pricing
             </Heading>
-            <Paragraph className={cn("max-w-3xl mx-auto text-neutral-600", CalSans.className)}>
+            <Paragraph className={cn("max-w-3xl mx-auto text-neutral-600 tracking-tighter", CalSans.className)}>
               Start free and upgrade when you need unlimited resumes and advanced AI features.
             </Paragraph>
           </div>
@@ -581,10 +581,10 @@ const PricingSection = ({
         {/* Comparison Table */}
         {/* <div className="px-4 sm:px-6 lg:px-12">
           <div className="mt-20 text-center">
-            <SubHeading className={cn("text-neutral-900", CalSans.className)}>
+            <SubHeading className={cn("text-neutral-900 tracking-tighter", CalSans.className)}>
               Compare Plans
             </SubHeading>
-            <Paragraph className={cn("max-w-2xl mx-auto text-neutral-600", CalSans.className)}>
+            <Paragraph className={cn("max-w-2xl mx-auto text-neutral-600 tracking-tighter", CalSans.className)}>
               See exactly what you get with each plan at a glance.
             </Paragraph>
           </div>

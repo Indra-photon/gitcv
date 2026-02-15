@@ -78,7 +78,7 @@ export function NavBar({
             >
               <Link href="/" className="text-xl font-bold text-foreground">
                 <Image
-                  src="/Logo.png"
+                  src="/Logo1.svg"
                   alt="Logo"
                   width={40}
                   height={20}

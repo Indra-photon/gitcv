@@ -95,14 +95,14 @@ export const metadata: Metadata = {
     description: "Transform your GitHub repositories into professional, ATS-friendly resumes in 10-15 minutes. AI-powered, role-specific, and designed for developers.",
     images: [
       {
-        url: "/Logo.png", // Main OG image (1200x630px recommended)
+        url: "/Logo1.svg", // Main OG image (1200x630px recommended)
         width: 1200,
         height: 630,
         alt: "GitHub Resume Builder - Transform Your Code into Professional Resumes",
         type: "image/png"
       },
       {
-        url: "/Logo.png", // Square variant for social media
+        url: "/Logo1.svg", // Square variant for social media
         width: 1200,
         height: 1200,
         alt: "GitHub Resume Builder Logo",
@@ -134,11 +134,11 @@ export const metadata: Metadata = {
   
   icons: {
     icon: [
-      { url: "/Logo.png", sizes: "16x16", type: "image/png" },
-      { url: "/Logo.png", sizes: "32x32", type: "image/png" }
+      { url: "/Logo1.svg", sizes: "16x16", type: "image/png" },
+      { url: "/Logo1.svg", sizes: "32x32", type: "image/png" }
     ],
     apple: [
-      { url: "/Logo.png", sizes: "180x180", type: "image/png" }
+      { url: "/Logo1.svg", sizes: "180x180", type: "image/png" }
     ],
     other: [
       {
